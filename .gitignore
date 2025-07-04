@@ -2,3 +2,5 @@
 tips.txt
 raw/
 processed_embeddings.json
+src/test_faiss/processed_embeddings.json
+src/processed_embeddings.json
