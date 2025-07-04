@@ -1,0 +1,108 @@
+=== PROGRESSION DU SCRAPING ===
+Démarrage: 2025-07-03 15:36:00
+Status: EN COURS
+
+[15:36:14] Début traitement: Breast Cancer
+[15:37:02] Fin traitement: Breast Cancer
+[15:37:03] Début traitement: Colorectal Cancer
+[15:37:53] Fin traitement: Colorectal Cancer
+[15:37:54] Début traitement: Lung Cancer
+[15:38:42] Fin traitement: Lung Cancer
+[15:38:43] Début traitement: Prostate Cancer
+[15:39:32] Fin traitement: Prostate Cancer
+[15:39:33] Début traitement: Skin Cancer
+[15:40:46] Fin traitement: Skin Cancer
+[15:40:47] Début traitement: Head and Neck Cancers
+[15:41:59] Fin traitement: Head and Neck Cancers
+[15:42:00] Début traitement: Laryngeal and Hypopharyngeal Cancer
+[15:42:00] Fin traitement: Laryngeal and Hypopharyngeal Cancer
+[15:42:01] Début traitement: Nasal Cavity and Paranasal Sinuses Cancer
+[15:42:49] Fin traitement: Nasal Cavity and Paranasal Sinuses Cancer
+[15:42:50] Début traitement: Nasopharyngeal Cancer
+[15:43:39] Fin traitement: Nasopharyngeal Cancer
+[15:43:40] Début traitement: Oral Cavity (Mouth) and Oropharyngeal (Throat) Cancer
+[15:44:28] Fin traitement: Oral Cavity (Mouth) and Oropharyngeal (Throat) Cancer
+[15:44:29] Début traitement: Salivary Gland Cancer
+[15:45:17] Fin traitement: Salivary Gland Cancer
+[15:45:18] Début traitement: Anal Cancer
+[15:46:06] Fin traitement: Anal Cancer
+[15:46:07] Début traitement: Bile Duct Cancer
+[15:46:55] Fin traitement: Bile Duct Cancer
+[15:46:56] Début traitement: Colorectal Cancer
+[15:46:56] Fin traitement: Colorectal Cancer
+[15:46:57] Début traitement: Esophagus Cancer
+[15:47:45] Fin traitement: Esophagus Cancer
+[15:47:46] Début traitement: Gallbladder Cancer
+[15:48:34] Fin traitement: Gallbladder Cancer
+[15:48:35] Début traitement: Gastrointestinal Neuroendocrine (Carcinoid) Tumors
+[15:49:24] Fin traitement: Gastrointestinal Neuroendocrine (Carcinoid) Tumors
+[15:49:25] Début traitement: Gastrointestinal Stromal Tumor (GIST)
+[15:50:13] Fin traitement: Gastrointestinal Stromal Tumor (GIST)
+[15:50:14] Début traitement: Liver Cancer
+[15:51:02] Fin traitement: Liver Cancer
+[15:51:03] Début traitement: Pancreatic Cancer
+[15:51:51] Fin traitement: Pancreatic Cancer
+[15:51:52] Début traitement: Pancreatic Neuroendocrine Tumor (NET)
+[15:52:40] Fin traitement: Pancreatic Neuroendocrine Tumor (NET)
+[15:52:41] Début traitement: Small Intestine Cancer
+[15:53:29] Fin traitement: Small Intestine Cancer
+[15:53:30] Début traitement: Stomach Cancer
+[15:54:18] Fin traitement: Stomach Cancer
+[15:54:19] Début traitement: Bladder Cancer
+[15:55:07] Fin traitement: Bladder Cancer
+[15:55:08] Début traitement: Kidney Cancer
+[15:55:56] Fin traitement: Kidney Cancer
+[15:55:57] Début traitement: Wilms Tumor
+[15:56:45] Fin traitement: Wilms Tumor
+[15:56:46] Début traitement: Lung Cancer
+[15:56:46] Fin traitement: Lung Cancer
+[15:56:47] Début traitement: Lung Carcinoid Tumor
+[15:57:35] Fin traitement: Lung Carcinoid Tumor
+[15:57:36] Début traitement: Mesothelioma
+[15:58:24] Fin traitement: Mesothelioma
+[15:58:25] Début traitement: Breast Cancer
+[15:58:25] Fin traitement: Breast Cancer
+[15:58:26] Début traitement: Breast Cancer in Men
+[15:59:15] Fin traitement: Breast Cancer in Men
+[15:59:16] Début traitement: Cervical Cancer
+[16:00:04] Fin traitement: Cervical Cancer
+[16:00:05] Début traitement: Endometrial Cancer
+[16:00:53] Fin traitement: Endometrial Cancer
+[16:00:54] Début traitement: Ovarian Cancer
+[16:01:42] Fin traitement: Ovarian Cancer
+[16:01:43] Début traitement: Penile Cancer
+[16:02:31] Fin traitement: Penile Cancer
+[16:02:32] Début traitement: Prostate Cancer
+[16:02:32] Fin traitement: Prostate Cancer
+[16:02:33] Début traitement: Testicular Cancer
+[16:03:21] Fin traitement: Testicular Cancer
+[16:03:22] Début traitement: Uterine Sarcoma
+[16:04:10] Fin traitement: Uterine Sarcoma
+[16:04:11] Début traitement: Vaginal Cancer
+[16:04:59] Fin traitement: Vaginal Cancer
+[16:05:00] Début traitement: Vulvar Cancer
+[16:05:48] Fin traitement: Vulvar Cancer
+[16:05:49] Début traitement: Adrenal Cancer
+[16:06:38] Fin traitement: Adrenal Cancer
+[16:06:39] Début traitement: Gastrointestinal Neuroendocrine (Carcinoid) Tumors
+[16:06:39] Fin traitement: Gastrointestinal Neuroendocrine (Carcinoid) Tumors
+[16:06:40] Début traitement: Lung Carcinoid Tumor
+[16:06:40] Fin traitement: Lung Carcinoid Tumor
+[16:06:41] Début traitement: Pancreatic Neuroendocrine Tumor (NET)
+[16:06:41] Fin traitement: Pancreatic Neuroendocrine Tumor (NET)
+[16:06:42] Début traitement: Pituitary Tumors
+[16:07:29] Fin traitement: Pituitary Tumors
+[16:07:30] Début traitement: Thyroid Cancer
+[16:08:18] Fin traitement: Thyroid Cancer
+[16:08:19] Début traitement: Skin Cancer
+[16:08:19] Fin traitement: Skin Cancer
+[16:08:20] Début traitement: Basal and Squamous Cell Skin Cancer
+[16:08:20] Fin traitement: Basal and Squamous Cell Skin Cancer
+[16:08:21] Début traitement: Kaposi Sarcoma
+[16:09:10] Fin traitement: Kaposi Sarcoma
+[16:09:11] Début traitement: Lymphoma of the Skin
+[16:09:31] Début traitement: Breast Cancer
+[16:09:33] Fin traitement: Breast Cancer
+[16:09:34] Début traitement: Colorectal Cancer
+[16:09:36] Fin traitement: Colorectal Cancer
+[16:09:37] Début traitement: Lung Cancer

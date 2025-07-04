@@ -1,0 +1,6 @@
+Bio
+bs4
+selenium
+sentence-transformers
+tqdm
+faiss-cpu
