@@ -4,3 +4,10 @@ selenium
 sentence-transformers
 tqdm
 faiss-cpu
+huggingface
+pydicom
+langgraph
+langchain
+langchain-community
+datasets
+kaggle
