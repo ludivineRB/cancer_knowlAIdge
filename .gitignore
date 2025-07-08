@@ -8,3 +8,4 @@ src/processed_embeddings.json
 *.jsonl
 __pycache__
 .env
+
