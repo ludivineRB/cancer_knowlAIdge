@@ -8,24 +8,7 @@ import os
 import re
 from urllib.parse import urljoin, urlparse
 
-class CancerInfoScraper:
-    def __init__(self, headless=True):
-        """Initialise le scraper avec les options Chrome"""
-        self.driver = None
-        self.base_url = "https://www.cancer.org"
-        self.visited_urls = set()
-        self.scraped_data = []
-        self.retry_count = 3
-        self.setup_driver(headless)
-    from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
-import time
-import os
-import re
-from urllib.parse import urljoin, urlparse
+
 
 class CancerInfoScraper:
     def __init__(self, headless=True, output_dir="cancer_data"):

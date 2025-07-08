@@ -4,7 +4,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 
 # === CONFIGURATION ===
-EMBEDDINGS_FILE = "src/processed_embeddings.json"
+EMBEDDINGS_FILE = "src/processed_embeddings2.json"
 EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"  # Même modèle qu’à l’encodage
 TOP_K = 5
 
