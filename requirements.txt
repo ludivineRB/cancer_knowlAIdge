@@ -11,3 +11,11 @@ langchain
 langchain-community
 datasets
 kaggle
+torch 
+transformers 
+peft 
+bitsandbytes 
+accelerate
+ollama
+dotenv
+googletrans
