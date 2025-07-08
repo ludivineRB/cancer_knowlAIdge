@@ -1,0 +1,5 @@
+[tool.ruff]
+line-length = 100  # par exemple
+fix = true        # activer les corrections automatiques
+show-fixes = true
+select = ["E", "F", "W", "C90"]  # E=pycodestyle, F=pyflakes, W=warnings, etc.

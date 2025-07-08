@@ -19,3 +19,4 @@ accelerate
 ollama
 dotenv
 googletrans
+ruff
