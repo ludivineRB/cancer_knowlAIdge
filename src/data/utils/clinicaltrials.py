@@ -1,19 +1,19 @@
+import requests
+import json
+import os
+import time
 
 cancer_liste=['lung cancer', 'breast cancer', 'brain cancer',
                 'bone cancer', 'skin cancer', 'colorectal cancer',
                 'bladder cancer', 'lymphoma', 'cervical cancer', 'leukemia',
                 'melanoma', 'prostate cancer', 'bowel cancer', 'kidney cancer',
-                'childhood cancer', 'uterine cancer', 'sarcoma', 'appendix cancer', 
+                'childhood cancer', 'uterine cancer', 'sarcoma', 'appendix cancer',
                 'liver cancer', 'pancreatic cancer', 'myeloma', 'carcinoma',
                 'esophageal cancer', 'endometrial cancer', 'retinoblastoma',
                 'gastric cancer', 'testicular cancer', 'ovarian cancer', 'metastatic cancer',
-                'neuroblastoma', 
+                'neuroblastoma',
                 ]
 
-import requests
-import json
-import os
-import time
 
 def fetch_clinical_trials_v2(query, page_size=10, page_token=None):
     params = {

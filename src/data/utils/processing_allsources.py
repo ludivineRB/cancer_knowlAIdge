@@ -1,4 +1,4 @@
-# # 
+# #
 # import os
 # import json
 # import re
@@ -209,7 +209,7 @@ import glob
 import threading
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
-
+import torch
 import pandas as pd
 import pydicom
 from sentence_transformers import SentenceTransformer
@@ -226,7 +226,7 @@ MAX_THREADS = 4  # Ajuste selon ton CPU
 
 # === LOAD EMBEDDING MODEL ===
 print("[INFO] Loading embedding model...")
-import torch
+
 if torch.cuda.is_available():
     device = "cuda"
 else:
@@ -252,10 +252,84 @@ def split_text(text, chunk_size=500, overlap=50):
     return chunks
 
 # === METADATA INFERENCE ===
-def infer_metadata(file_path):
-    name = os.path.basename(file_path).lower()
-    parent_folder = os.path.basename(os.path.dirname(file_path)).lower()
+# def infer_metadata(file_path):
+#     name = os.path.basename(file_path).lower()
+#     parent_folder = os.path.basename(os.path.dirname(file_path)).lower()
 
+#     folder_mapping = {
+#         "pubmed": ("PubMed", "scientifique"),
+#         "rond": ("ROND", "radiothérapie"),
+#         "soda": ("SODA", "social health"),
+#         "tcia": ("TCIA", "imagerie"),
+#         "cancergov": ("cancergov", "recommandation"),
+#         "who": ("who_cancer", "statistiques"),
+#         "clinicaltrial": ("clinicaltrial", "essais cliniques"),
+#         "patient": ("CancerNet", "vulgarisation"),
+#         "pubmed-nlp": ("PubMed-Cancer-NLP", "tests NLP cancer")
+#     }
+
+#     # Cherche clé dans folder_mapping
+#     meta = None
+#     for key in folder_mapping:
+#         if key == parent_folder:
+#             meta = folder_mapping[key]
+#             break
+
+#     if meta:
+#         source, type_ = meta
+#     else:
+#         # fallback sur nom fichier
+#         if "pubmed" in name:
+#             source, type_ = "PubMed", "scientifique"
+#         elif "rond" in name:
+#             source, type_ = "ROND", "radiothérapie"
+#         elif "soda" in name:
+#             source, type_ = "SODA", "social health"
+#         elif "tcia" in name:
+#             source, type_ = "TCIA", "imagerie"
+#         elif "trials" in name:
+#             source, type_ = "clinicaltrial", "essai clinique"
+#         elif "cancergov" in name:
+#             source, type_ = "cancergov", "recommandation"
+#         elif "who" in name:
+#             source, type_ = "who_cancer", "statistiques"
+#         elif "patient" in name:
+#             source, type_ = "CancerNet", "vulgarisation"
+#         else:
+#             source, type_ = "Unknown", "Unknown"
+
+#     return {
+#         "source": source,
+#         "type": type_,
+#         "date": datetime.now().strftime("%Y-%m-%d")
+#     }
+
+# Remplacement def infer_metadata pour ruff
+
+def infer_metadata(file_path):
+    name = get_file_name(file_path)
+    parent_folder = get_parent_folder(file_path)
+
+    source, type_ = get_metadata_from_folder(parent_folder)
+    if source is None:
+        source, type_ = get_metadata_from_name(name)
+
+    return {
+        "source": source,
+        "type": type_,
+        "date": get_current_date()
+    }
+
+
+def get_file_name(file_path):
+    return os.path.basename(file_path).lower()
+
+
+def get_parent_folder(file_path):
+    return os.path.basename(os.path.dirname(file_path)).lower()
+
+
+def get_metadata_from_folder(folder_name):
     folder_mapping = {
         "pubmed": ("PubMed", "scientifique"),
         "rond": ("ROND", "radiothérapie"),
@@ -267,42 +341,33 @@ def infer_metadata(file_path):
         "patient": ("CancerNet", "vulgarisation"),
         "pubmed-nlp": ("PubMed-Cancer-NLP", "tests NLP cancer")
     }
+    return folder_mapping.get(folder_name, (None, None))
 
-    # Cherche clé dans folder_mapping
-    meta = None
-    for key in folder_mapping:
-        if key == parent_folder:
-            meta = folder_mapping[key]
-            break
 
-    if meta:
-        source, type_ = meta
+def get_metadata_from_name(file_name):
+    if "pubmed" in file_name:
+        return "PubMed", "scientifique"
+    elif "rond" in file_name:
+        return "ROND", "radiothérapie"
+    elif "soda" in file_name:
+        return "SODA", "social health"
+    elif "tcia" in file_name:
+        return "TCIA", "imagerie"
+    elif "trials" in file_name:
+        return "clinicaltrial", "essai clinique"
+    elif "cancergov" in file_name:
+        return "cancergov", "recommandation"
+    elif "who" in file_name:
+        return "who_cancer", "statistiques"
+    elif "patient" in file_name:
+        return "CancerNet", "vulgarisation"
     else:
-        # fallback sur nom fichier
-        if "pubmed" in name:
-            source, type_ = "PubMed", "scientifique"
-        elif "rond" in name:
-            source, type_ = "ROND", "radiothérapie"
-        elif "soda" in name:
-            source, type_ = "SODA", "social health"
-        elif "tcia" in name:
-            source, type_ = "TCIA", "imagerie"
-        elif "trials" in name:
-            source, type_ = "clinicaltrial", "essai clinique"
-        elif "cancergov" in name:
-            source, type_ = "cancergov", "recommandation"
-        elif "who" in name:
-            source, type_ = "who_cancer", "statistiques"
-        elif "patient" in name:
-            source, type_ = "CancerNet", "vulgarisation"
-        else:
-            source, type_ = "Unknown", "Unknown"
+        return "Unknown", "Unknown"
 
-    return {
-        "source": source,
-        "type": type_,
-        "date": datetime.now().strftime("%Y-%m-%d")
-    }
+
+def get_current_date():
+    return datetime.now().strftime("%Y-%m-%d")
+
 
 # === ASSURE QUE LES METADATA SONT COMPLETES ===
 def ensure_complete_metadata(meta, fallback_meta):
@@ -329,74 +394,179 @@ def parse_metadata_from_content(data, fallback_meta):
     return meta
 
 # === PROCESS FILE ===
+# def process_file(file_path):
+#     try:
+#         print(f"[PROCESSING] {file_path}")
+#         fallback_meta = infer_metadata(file_path)
+#         results = []
+
+#         if file_path.endswith(".json"):
+#             with open(file_path, "r", encoding="utf-8") as f:
+#                 data = json.load(f)
+#             meta = parse_metadata_from_content(data, fallback_meta)
+#             texts = [json.dumps(item) if isinstance(item, dict) else str(item) for item in (data if isinstance(data, list) else [data])]
+#             texts = [(text, meta) for text in texts]
+
+#         elif file_path.endswith(".jsonl"):
+#             texts = []
+#             with open(file_path, "r", encoding="utf-8") as f:
+#                 for line in f:
+#                     line_data = json.loads(line)
+#                     meta = parse_metadata_from_content(line_data, fallback_meta)
+#                     text = line_data.get("context", line.strip())
+#                     texts.append((text, meta))
+
+#         elif file_path.endswith(".tsv"):
+#             df = pd.read_csv(file_path, sep="\t")
+#             meta = fallback_meta
+#             if "text" in df.columns:
+#                 texts = df['text'].dropna().astype(str).tolist()
+#                 texts = [(text, meta) for text in texts]
+#             else:
+#                 print(f"[WARN] No 'text' column in {file_path}")
+#                 return []
+
+#         elif file_path.endswith(".txt"):
+#             meta = fallback_meta
+#             with open(file_path, "r", encoding="utf-8") as f:
+#                 texts = [(f.read(), meta)]
+
+#         elif file_path.endswith(".dcm"):
+#             ds = pydicom.dcmread(file_path)
+#             dicom_text = str(ds)
+#             meta = fallback_meta
+#             texts = [(dicom_text, meta)]
+
+#         else:
+#             print(f"⚠️ Unsupported file type: {file_path}")
+#             return []
+
+#         for text, text_meta in texts:
+#             clean = clean_text(text)
+#             chunks = split_text(clean, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP)
+#             with model_lock:
+#                 for chunk in chunks:
+#                     try:
+#                         embedding = model.encode(chunk, normalize_embeddings=True)
+#                         embedding_list = [float(x) for x in embedding]
+#                         results.append({
+#                             "text": chunk,
+#                             "embedding": embedding_list,
+#                             "metadata": text_meta
+#                         })
+#                     except Exception as embed_err:
+#                         print(f"[WARN] Failed to embed chunk: {embed_err}")
+
+#         return results
+
+#     except Exception as e:
+#         print(f"[ERROR] Failed to process {file_path}: {e}")
+#         return []
+
+# Refactorisation de process_file pour ruff
 def process_file(file_path):
     try:
         print(f"[PROCESSING] {file_path}")
         fallback_meta = infer_metadata(file_path)
-        results = []
 
-        if file_path.endswith(".json"):
-            with open(file_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            meta = parse_metadata_from_content(data, fallback_meta)
-            texts = [json.dumps(item) if isinstance(item, dict) else str(item) for item in (data if isinstance(data, list) else [data])]
-            texts = [(text, meta) for text in texts]
-
-        elif file_path.endswith(".jsonl"):
-            texts = []
-            with open(file_path, "r", encoding="utf-8") as f:
-                for line in f:
-                    line_data = json.loads(line)
-                    meta = parse_metadata_from_content(line_data, fallback_meta)
-                    text = line_data.get("context", line.strip())
-                    texts.append((text, meta))
-
-        elif file_path.endswith(".tsv"):
-            df = pd.read_csv(file_path, sep="\t")
-            meta = fallback_meta
-            if "text" in df.columns:
-                texts = df['text'].dropna().astype(str).tolist()
-                texts = [(text, meta) for text in texts]
-            else:
-                print(f"[WARN] No 'text' column in {file_path}")
-                return []
-
-        elif file_path.endswith(".txt"):
-            meta = fallback_meta
-            with open(file_path, "r", encoding="utf-8") as f:
-                texts = [(f.read(), meta)]
-
-        elif file_path.endswith(".dcm"):
-            ds = pydicom.dcmread(file_path)
-            dicom_text = str(ds)
-            meta = fallback_meta
-            texts = [(dicom_text, meta)]
-
-        else:
-            print(f"⚠️ Unsupported file type: {file_path}")
+        texts = extract_texts_with_metadata(file_path, fallback_meta)
+        if not texts:
             return []
 
-        for text, text_meta in texts:
-            clean = clean_text(text)
-            chunks = split_text(clean, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP)
-            with model_lock:
-                for chunk in chunks:
-                    try:
-                        embedding = model.encode(chunk, normalize_embeddings=True)
-                        embedding_list = [float(x) for x in embedding]
-                        results.append({
-                            "text": chunk,
-                            "embedding": embedding_list,
-                            "metadata": text_meta
-                        })
-                    except Exception as embed_err:
-                        print(f"[WARN] Failed to embed chunk: {embed_err}")
-
+        results = embed_texts(texts)
         return results
 
     except Exception as e:
         print(f"[ERROR] Failed to process {file_path}: {e}")
         return []
+
+
+def extract_texts_with_metadata(file_path, fallback_meta):
+    """
+    Extraction des textes et des métadonnées en fonction du type de fichier.
+    """
+    if file_path.endswith(".json"):
+        return process_json_file(file_path, fallback_meta)
+
+    elif file_path.endswith(".jsonl"):
+        return process_jsonl_file(file_path, fallback_meta)
+
+    elif file_path.endswith(".tsv"):
+        return process_tsv_file(file_path, fallback_meta)
+
+    elif file_path.endswith(".txt"):
+        return process_txt_file(file_path, fallback_meta)
+
+    elif file_path.endswith(".dcm"):
+        return process_dcm_file(file_path, fallback_meta)
+
+    else:
+        print(f"⚠️ Unsupported file type: {file_path}")
+        return []
+
+
+def process_json_file(file_path, fallback_meta):
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    meta = parse_metadata_from_content(data, fallback_meta)
+    texts = [json.dumps(item) if isinstance(item, dict) else str(item) for item in (data if isinstance(data, list) else [data])]
+    return [(text, meta) for text in texts]
+
+
+def process_jsonl_file(file_path, fallback_meta):
+    texts = []
+    with open(file_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line_data = json.loads(line)
+            meta = parse_metadata_from_content(line_data, fallback_meta)
+            text = line_data.get("context", line.strip())
+            texts.append((text, meta))
+    return texts
+
+
+def process_tsv_file(file_path, fallback_meta):
+    df = pd.read_csv(file_path, sep="\t")
+    if "text" in df.columns:
+        texts = df['text'].dropna().astype(str).tolist()
+        return [(text, fallback_meta) for text in texts]
+    else:
+        print(f"[WARN] No 'text' column in {file_path}")
+        return []
+
+
+def process_txt_file(file_path, fallback_meta):
+    with open(file_path, "r", encoding="utf-8") as f:
+        return [(f.read(), fallback_meta)]
+
+
+def process_dcm_file(file_path, fallback_meta):
+    ds = pydicom.dcmread(file_path)
+    dicom_text = str(ds)
+    return [(dicom_text, fallback_meta)]
+
+
+def embed_texts(texts):
+    """
+    Découpe et encode les textes extraits en embeddings.
+    """
+    results = []
+    for text, text_meta in texts:
+        clean = clean_text(text)
+        chunks = split_text(clean, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP)
+        with model_lock:
+            for chunk in chunks:
+                try:
+                    embedding = model.encode(chunk, normalize_embeddings=True)
+                    embedding_list = [float(x) for x in embedding]
+                    results.append({
+                        "text": chunk,
+                        "embedding": embedding_list,
+                        "metadata": text_meta
+                    })
+                except Exception as embed_err:
+                    print(f"[WARN] Failed to embed chunk: {embed_err}")
+    return results
+
 
 # === MAIN ===
 def main():

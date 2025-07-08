@@ -40,7 +40,12 @@ def scrape_cancer_gov_articles():
 
         # Récupérer tout le texte dans la div id="cgvBody"
         content_div = article_soup.find("div", id="cgvBody")
-        full_text = content_div.get_text(separator="\n", strip=True) if content_div else "No content found"
+        full_text = (
+            content_div.get_text(
+            separator="\n", strip=True)
+            if content_div
+            else "No content found"
+        )
 
         article_data = {
             "title": title,

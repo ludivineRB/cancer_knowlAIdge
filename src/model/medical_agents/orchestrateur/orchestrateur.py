@@ -45,7 +45,6 @@
 #         print(f"🤖 Réponse : {response['output']}\n")
 
 # orchestrateur.py
-from typing import TypedDict
 from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, START, END
 from googletrans import Translator

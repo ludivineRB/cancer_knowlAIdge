@@ -1,12 +1,9 @@
 import os
 import json
-import glob
 import re
 from datetime import datetime
 from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
-import torch
-import numpy as np
 
 # === CONFIGURATION ===
 DATA_FOLDER = "./data/raw"  # Dossier où sont tes fichiers .json et .txt

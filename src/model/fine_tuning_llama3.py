@@ -1,7 +1,6 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, Trainer, DataCollatorForLanguageModeling
 from datasets import load_dataset
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-import torch
 
 # 🔥 Utilise la version quantifiée de LLaMA 3
 BASE_MODEL = "meta-llama/Llama-3-8b-hf"  # ou "Llama-2-7b-hf" si GPU limité
