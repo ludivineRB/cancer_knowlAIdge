@@ -62,78 +62,69 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 # Google Translate
 translator = Translator()
 
-# ✅ Définition du State (le "schéma" du state)
-class AgentState(TypedDict):
-    input: str
-    translated_input: str
-    output: str
-    language: str
+# # ✅ Définition du State (le "schéma" du state)
+# class AgentState(TypedDict):
+#     input: str
+#     translated_input: str
+#     output: str
+#     language: str
 
 class ChatState(BaseModel):
     input: str
     translated_input: str | None = None
     language: str | None = None
     answer_en: str | None = None
+    output: str | None = None
 
 def translate_sync(text, dest="en"):
     loop = asyncio.get_event_loop()
     return loop.run_until_complete(translator.translate(text, dest=dest))
 
 # 🌍 Agent de traduction vers anglais
-def translate_to_english_node(state: AgentState) -> AgentState:
-    user_input = state["input"]
+def translate_to_english_node(state: ChatState) -> ChatState:
+    user_input = state.input
     print("🌍 Traduction en anglais en cours...")
 
     # ✅ Traduction synchrone
     result = translate_sync(user_input, dest="en")
 
     print(f"✅ Traduction anglaise : {result.text} (langue détectée : {result.src})")
-    state["translated_input"] = result.text
-    state["language"] = result.src
+    state.translated_input = result.text
+    state.language = result.src
     return state
 
 
 # 1. Fonction qui traite la question
-def generaliste_node(state: AgentState) -> AgentState:
-    # ✅ Prendre la version traduite s'il y en a une
-    question_en = state.get("translated_input", state["input"])
+def generaliste_node(state: ChatState) -> ChatState:
+    question_en = state.translated_input or state.input
     print(f"🔍 [node] question reçue (anglais) : {question_en}")
 
-    # Appelle ton agent généraliste avec la question traduite
     answer = generaliste_agent(question_en)
 
     print(f"✅ [node] réponse générée (anglais) : {answer}")
-
-    # ✅ Stocke la réponse en anglais pour la retraduction
-    state["answer_en"] = answer
-    print(f"📝 [generaliste_node] State mis à jour : {state.keys()}")
+    state.answer_en = answer
     return state
 
 # 🌍 Agent de traduction retour vers la langue d’origine
-def translate_to_original_language_node(state: AgentState) -> AgentState:
-    answer_en = state.get("answer_en")
-    if not answer_en:
+def translate_to_original_language_node(state: ChatState) -> ChatState:
+    if not state.answer_en:
         print("⚠️ Pas de réponse en anglais trouvée, on utilise directement la sortie existante.")
-        state["output"] = state.get("output", "❌ Une erreur est survenue.")
+        state.output = "❌ Une erreur est survenue."
         return state
 
-    original_lang = state["language"]
-
-    if original_lang == "en":
-        state["output"] = answer_en
+    if state.language == "en":
+        state.output = state.answer_en
         return state
 
-    print(f"🌍 Retraduction en {original_lang} en cours...")
-    result = translate_sync(answer_en, dest=original_lang)
-    print(f"✅ Réponse retraduite : {result.text}")
-
-    state["output"] = result.text
-    print(f"📦 [translate_node] State reçu : {state.keys()}")
+    # print(f"🌍 Retraduction en {state.language} en cours...")
+    result = translate_sync(state.answer_en, dest=state.language)
+    # print(f"✅ Réponse retraduite : {result.text}")
+    state.output = result.text
     return state
 
 # 2. Création du graphe
-workflow = StateGraph(AgentState)
-graph = StateGraph(state_schema=ChatState)
+workflow = StateGraph(ChatState)
+# graph = StateGraph(state_schema=ChatState)
 
 
 # Ajoute les nœuds

@@ -4,3 +4,7 @@ raw/
 processed_embeddings.json
 src/test_faiss/processed_embeddings.json
 src/processed_embeddings.json
+*.json
+*.jsonl
+__pycache__
+.env
