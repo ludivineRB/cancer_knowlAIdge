@@ -1,55 +1,10 @@
-# # import sys
-# # import os
-
-# # # Ajoute le dossier src au PYTHONPATH
-# # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
-# from langgraph.graph import StateGraph
-
-# from ..agents.generaliste_agent import generaliste_agent
-
-# # 1️⃣ Définir l’état
-# class AgentState(dict):
-#     """
-#     Dictionnaire qui transporte l’état dans le graphe.
-#     """
-#     pass
-
-# # 2️⃣ Définir un noeud qui appelle directement ton agent
-# def run_generaliste(state: AgentState) -> AgentState:
-#     question = state.get("input")
-#     answer = generaliste_agent(question)
-#     return {"output": answer}
-
-# # 3️⃣ Créer le graphe
-# workflow = StateGraph(AgentState)
-
-# # Ajouter un noeud qui appelle le généraliste
-# workflow.add_node("generaliste", run_generaliste)
-
-# # Définir le point d’entrée
-# workflow.set_entry_point("generaliste")
-
-# # Compiler
-# app = workflow.compile()
-
-# # 🚀 Boucle de test
-# if __name__ == "__main__":
-#     print("👩‍⚕️ Bienvenue dans le chatbot médical.")
-#     while True:
-#         question = input("👤 Question : ")
-#         if question.lower() in ["exit", "quit", "q"]:
-#             print("👋 À bientôt !")
-#             break
-#         response = app.invoke({"input": question})
-#         print("DEBUG RESPONSE:", response)
-#         print(f"🤖 Réponse : {response['output']}\n")
-
 # orchestrateur.py
 from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, START, END
 from googletrans import Translator
 from ..agents.generaliste_agent import generaliste_agent
 from ..agents.clinical_trials_agent import clinical_trials_agent
+from ..agents.therapeutique_agent import treatments_agent
 from dotenv import load_dotenv
 import os
 import asyncio
@@ -61,13 +16,6 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Google Translate
 translator = Translator()
-
-# # ✅ Définition du State (le "schéma" du state)
-# class AgentState(TypedDict):
-#     input: str
-#     translated_input: str
-#     output: str
-#     language: str
 
 class ChatState(BaseModel):
     input: str
@@ -118,7 +66,21 @@ def clinical_trials_node(state: ChatState) -> ChatState:
     else:
         print("➡️ [node] pas d’essais cliniques détectés, on continue")
         return state
+    
+def treatments_node(state: ChatState) -> ChatState:
+    question_en = state.translated_input or state.input
+    print(f"🔎 [node] recherche de traitements pour : {question_en}")
 
+    response = treatments_agent(question_en)
+    if response:
+        # print(f"✅ [node] traitements trouvés : {response}")
+        state.answer_en = response
+        # 👉 On saute le generaliste si on a trouvé une réponse
+        return state
+    else:
+        print("➡️ [node] pas de traitements trouvés, on continue")
+        return state
+    
 # 🌍 Agent de traduction retour vers la langue d’origine
 def translate_to_original_language_node(state: ChatState) -> ChatState:
     if not state.answer_en:
@@ -144,6 +106,7 @@ workflow = StateGraph(ChatState)
 # Ajoute les nœuds
 workflow.add_node("translate_to_english", translate_to_english_node)
 workflow.add_node("clinical_trials", clinical_trials_node)
+workflow.add_node("treatments", treatments_node)
 workflow.add_node("generaliste", generaliste_node)
 workflow.add_node("translate_to_original_language", translate_to_original_language_node)
 
@@ -152,6 +115,14 @@ workflow.add_edge(START, "translate_to_english")
 workflow.add_edge("translate_to_english", "clinical_trials")
 workflow.add_conditional_edges(
     "clinical_trials",
+    lambda state: "translate_to_original_language" if state.answer_en is not None else "treatments",
+    {
+      "translate_to_original_language": "translate_to_original_language",
+      "treatments": "treatments"
+    }
+)
+workflow.add_conditional_edges(
+    "treatments",
     lambda state: "translate_to_original_language" if state.answer_en is not None else "generaliste",
     {
       "translate_to_original_language": "translate_to_original_language",
