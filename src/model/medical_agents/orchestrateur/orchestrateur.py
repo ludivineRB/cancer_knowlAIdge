@@ -49,6 +49,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, START, END
 from googletrans import Translator
 from ..agents.generaliste_agent import generaliste_agent
+from ..agents.clinical_trials_agent import clinical_trials_agent
 from dotenv import load_dotenv
 import os
 import asyncio
@@ -104,6 +105,20 @@ def generaliste_node(state: ChatState) -> ChatState:
     state.answer_en = answer
     return state
 
+def clinical_trials_node(state: ChatState) -> ChatState:
+    question_en = state.translated_input or state.input
+    print(f"🔎 [node] recherche essais cliniques pour : {question_en}")
+
+    response = clinical_trials_agent(question_en)
+    if response:
+        # print(f"✅ [node] essais cliniques trouvés : {response}")
+        state.answer_en = response
+        # 👉 On saute le generaliste si on a trouvé une réponse
+        return state
+    else:
+        print("➡️ [node] pas d’essais cliniques détectés, on continue")
+        return state
+
 # 🌍 Agent de traduction retour vers la langue d’origine
 def translate_to_original_language_node(state: ChatState) -> ChatState:
     if not state.answer_en:
@@ -128,12 +143,22 @@ workflow = StateGraph(ChatState)
 
 # Ajoute les nœuds
 workflow.add_node("translate_to_english", translate_to_english_node)
+workflow.add_node("clinical_trials", clinical_trials_node)
 workflow.add_node("generaliste", generaliste_node)
 workflow.add_node("translate_to_original_language", translate_to_original_language_node)
 
 # Connexions entre les nœuds
 workflow.add_edge(START, "translate_to_english")
-workflow.add_edge("translate_to_english", "generaliste")
+workflow.add_edge("translate_to_english", "clinical_trials")
+workflow.add_conditional_edges(
+    "clinical_trials",
+    lambda state: "translate_to_original_language" if state.answer_en is not None else "generaliste",
+    {
+      "translate_to_original_language": "translate_to_original_language",
+      "generaliste": "generaliste"
+    }
+)
+# workflow.add_edge("translate_to_english", "generaliste")
 workflow.add_edge("generaliste", "translate_to_original_language")
 workflow.add_edge("translate_to_original_language", END)
 
