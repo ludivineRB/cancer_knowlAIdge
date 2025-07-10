@@ -6,6 +6,7 @@ from ..agents.generaliste_agent import generaliste_agent
 from ..agents.clinical_trials_agent import clinical_trials_agent
 from ..agents.therapeutique_agent import treatments_agent
 from ..agents.diagnostic_agent import diagnostic_agent
+from ..agents.conversational_agent import diagnostic_agent_conversation
 from dotenv import load_dotenv
 import os
 import asyncio
@@ -82,17 +83,56 @@ def treatments_node(state: ChatState) -> ChatState:
         print("➡️ [node] pas de traitements trouvés, on continue")
         return state
 
-def diagnosis_node(state: dict) -> dict:
-    question_en = state.translated_input or state.input
-    print("🔎 [graph] Appel de l'agent diagnostic Groq…")
+# def diagnosis_node(state: dict) -> dict:
+#     question_en = state.translated_input or state.input
+#     print("🔎 [graph] Appel de l'agent diagnostic Groq…")
 
-    result = diagnostic_agent(question_en)
-    # Retourne sous forme d'état LangGraph
-    if result and "diagnosis" in result:
-        print("✅ [agent] Diagnostic généré par Groq.")
-        state.answer_en = result["diagnosis"]
-    else:
-        print("❌ [agent] Aucun diagnostic trouvé.")
+#     result = diagnostic_agent(question_en)
+#     # Retourne sous forme d'état LangGraph
+#     if result and "diagnosis" in result:
+#         print("✅ [agent] Diagnostic généré par Groq.")
+#         state.answer_en = result["diagnosis"]
+#     else:
+#         print("❌ [agent] Aucun diagnostic trouvé.")
+#     return state
+
+def diagnosis_node(state: ChatState) -> ChatState:
+    # Premier prompt déjà traduit en anglais
+    question_en = state.translated_input or state.input
+    user_language = state.language or "en"
+
+    print("🩺 [agent] Diagnostic interactif en cours…")
+
+    while True:
+        # 💬 Appelle l'agent de diagnostic en anglais
+        response_en = diagnostic_agent_conversation(question_en)
+        print(f"🤖 [agent EN] {response_en}")
+
+        # 🌍 Retraduit la réponse dans la langue d’origine
+        if user_language != "en":
+            result = translate_sync(response_en, dest=user_language)
+            response_translated = result.text
+            print(f"🌍 [agent {user_language.upper()}] {response_translated}")
+        else:
+            response_translated = response_en
+
+        # 🔚 Vérifie si le diagnostic est terminé
+        if "diagnostic final" in response_en.lower() or "je pense que" in response_en.lower():
+            print("✅ [agent] Diagnostic finalisé.")
+            state.answer_en = response_en  # On stocke l'EN pour la suite
+            break
+
+        # 👤 Demande la réponse suivante à l’utilisateur
+        user_input = input("👤 Votre réponse (ou 'exit' pour quitter) : ")
+        if user_input.lower() in ["exit", "quit", "stop"]:
+            print("🛑 Fin de la session de diagnostic.")
+            break
+
+        # 🌍 Détecte la langue et traduit en anglais
+        result = translate_sync(user_input, dest="en")
+        question_en = result.text
+        user_language = result.src  # Met à jour la langue détectée
+
     return state
 
 # 🌍 Agent de traduction retour vers la langue d’origine

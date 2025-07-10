@@ -21,3 +21,4 @@ dotenv
 googletrans
 ruff
 groq
+langchain_groq
