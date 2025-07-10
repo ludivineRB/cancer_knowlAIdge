@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configure l'API NCBI PubMed
-Entrez.email = os.getenv("PUBMED_EMAIL") 
+Entrez.email = os.getenv("PUBMED_EMAIL")
 
 # Configure l'API Groq
 groq_api_key = os.getenv("GROQ_API")
@@ -80,7 +80,7 @@ Tu es un assistant scientifique expert. Résume les publications suivantes dans 
 Donne :
 - 📝 Un résumé concis (5 lignes max)
 - 📌 Trois points clés
-- 🔗 Les liens PubMed suivants : 
+- 🔗 Les liens PubMed suivants:
 {links_text}
 """
     response = llm.invoke(prompt)

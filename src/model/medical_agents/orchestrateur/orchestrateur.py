@@ -148,16 +148,6 @@ def scientific_summary_node(state: ChatState) -> ChatState:
     state.answer_en = response
     return state
 
-def scientific_summary_node(state: ChatState) -> ChatState:
-    question_en = state.translated_input or state.input
-    user_language = state.language or "en"
-
-    print(f"📚 Recherche scientifique PubMed pour : {question_en}")
-    response = summarize_pubmed_results(question_en, language=user_language)
-
-    state.answer_en = response
-    return state
-
 # 🌍 Agent de traduction retour vers la langue d’origine
 def translate_to_original_language_node(state: ChatState) -> ChatState:
     if not state.answer_en:
