@@ -5,6 +5,7 @@ from googletrans import Translator
 from ..agents.generaliste_agent import generaliste_agent
 from ..agents.clinical_trials_agent import clinical_trials_agent
 from ..agents.therapeutique_agent import treatments_agent
+from ..agents.diagnostic_agent import diagnostic_agent
 from dotenv import load_dotenv
 import os
 import asyncio
@@ -66,7 +67,7 @@ def clinical_trials_node(state: ChatState) -> ChatState:
     else:
         print("➡️ [node] pas d’essais cliniques détectés, on continue")
         return state
-    
+
 def treatments_node(state: ChatState) -> ChatState:
     question_en = state.translated_input or state.input
     print(f"🔎 [node] recherche de traitements pour : {question_en}")
@@ -80,7 +81,20 @@ def treatments_node(state: ChatState) -> ChatState:
     else:
         print("➡️ [node] pas de traitements trouvés, on continue")
         return state
-    
+
+def diagnosis_node(state: dict) -> dict:
+    question_en = state.translated_input or state.input
+    print("🔎 [graph] Appel de l'agent diagnostic Groq…")
+
+    result = diagnostic_agent(question_en)
+    # Retourne sous forme d'état LangGraph
+    if result and "diagnosis" in result:
+        print("✅ [agent] Diagnostic généré par Groq.")
+        state.answer_en = result["diagnosis"]
+    else:
+        print("❌ [agent] Aucun diagnostic trouvé.")
+    return state
+
 # 🌍 Agent de traduction retour vers la langue d’origine
 def translate_to_original_language_node(state: ChatState) -> ChatState:
     if not state.answer_en:
@@ -107,6 +121,7 @@ workflow = StateGraph(ChatState)
 workflow.add_node("translate_to_english", translate_to_english_node)
 workflow.add_node("clinical_trials", clinical_trials_node)
 workflow.add_node("treatments", treatments_node)
+workflow.add_node("diagnosis", diagnosis_node)
 workflow.add_node("generaliste", generaliste_node)
 workflow.add_node("translate_to_original_language", translate_to_original_language_node)
 
@@ -123,6 +138,14 @@ workflow.add_conditional_edges(
 )
 workflow.add_conditional_edges(
     "treatments",
+    lambda state: "translate_to_original_language" if state.answer_en is not None else "diagnosis",
+    {
+      "translate_to_original_language": "translate_to_original_language",
+      "diagnosis": "diagnosis"
+    }
+)
+workflow.add_conditional_edges(
+    "diagnosis",
     lambda state: "translate_to_original_language" if state.answer_en is not None else "generaliste",
     {
       "translate_to_original_language": "translate_to_original_language",
