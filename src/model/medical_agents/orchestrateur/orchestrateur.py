@@ -5,7 +5,8 @@ from googletrans import Translator
 from ..agents.generaliste_agent import generaliste_agent
 from ..agents.clinical_trials_agent import clinical_trials_agent
 from ..agents.therapeutique_agent import treatments_agent
-from ..agents.diagnostic_agent import diagnostic_agent
+# from ..agents.diagnostic_agent import diagnostic_agent
+from ..agents.summarize_pubmed_agent import summarize_pubmed_results
 from ..agents.conversational_agent import diagnostic_agent_conversation
 from dotenv import load_dotenv
 import os
@@ -25,6 +26,7 @@ class ChatState(BaseModel):
     language: str | None = None
     answer_en: str | None = None
     output: str | None = None
+    terminated: bool = False # Flag Stop
 
 def translate_sync(text, dest="en"):
     loop = asyncio.get_event_loop()
@@ -126,6 +128,7 @@ def diagnosis_node(state: ChatState) -> ChatState:
         user_input = input("👤 Votre réponse (ou 'exit' pour quitter) : ")
         if user_input.lower() in ["exit", "quit", "stop"]:
             print("🛑 Fin de la session de diagnostic.")
+            state.terminated = True
             break
 
         # 🌍 Détecte la langue et traduit en anglais
@@ -133,6 +136,26 @@ def diagnosis_node(state: ChatState) -> ChatState:
         question_en = result.text
         user_language = result.src  # Met à jour la langue détectée
 
+    return state
+
+def scientific_summary_node(state: ChatState) -> ChatState:
+    question_en = state.translated_input or state.input
+    user_language = state.language or "en"
+
+    print(f"📚 Recherche scientifique PubMed pour : {question_en}")
+    response = summarize_pubmed_results(query=question_en, language=user_language)
+
+    state.answer_en = response
+    return state
+
+def scientific_summary_node(state: ChatState) -> ChatState:
+    question_en = state.translated_input or state.input
+    user_language = state.language or "en"
+
+    print(f"📚 Recherche scientifique PubMed pour : {question_en}")
+    response = summarize_pubmed_results(question_en, language=user_language)
+
+    state.answer_en = response
     return state
 
 # 🌍 Agent de traduction retour vers la langue d’origine
@@ -152,6 +175,10 @@ def translate_to_original_language_node(state: ChatState) -> ChatState:
     state.output = result.text
     return state
 
+def finalize_output_node(state: ChatState) -> ChatState:
+    state.output = state.answer_en or "❌ Aucune réponse générée."
+    return state
+
 # 2. Création du graphe
 workflow = StateGraph(ChatState)
 # graph = StateGraph(state_schema=ChatState)
@@ -163,6 +190,8 @@ workflow.add_node("clinical_trials", clinical_trials_node)
 workflow.add_node("treatments", treatments_node)
 workflow.add_node("diagnosis", diagnosis_node)
 workflow.add_node("generaliste", generaliste_node)
+workflow.add_node("scientific_summary", scientific_summary_node)
+workflow.add_node("finalize_output", finalize_output_node)
 workflow.add_node("translate_to_original_language", translate_to_original_language_node)
 
 # Connexions entre les nœuds
@@ -178,15 +207,16 @@ workflow.add_conditional_edges(
 )
 workflow.add_conditional_edges(
     "treatments",
-    lambda state: "translate_to_original_language" if state.answer_en is not None else "diagnosis",
+    lambda state: "translate_to_original_language" if state.answer_en is not None else "scientific_summary",
     {
       "translate_to_original_language": "translate_to_original_language",
-      "diagnosis": "diagnosis"
+      "scientific_summary": "scientific_summary"
     }
 )
+workflow.add_edge("scientific_summary", "translate_to_original_language")
 workflow.add_conditional_edges(
     "diagnosis",
-    lambda state: "translate_to_original_language" if state.answer_en is not None else "generaliste",
+    lambda state: "translate_to_original_language" if state.answer_en is not None or state.terminated else "generaliste",
     {
       "translate_to_original_language": "translate_to_original_language",
       "generaliste": "generaliste"
@@ -194,6 +224,7 @@ workflow.add_conditional_edges(
 )
 # workflow.add_edge("translate_to_english", "generaliste")
 workflow.add_edge("generaliste", "translate_to_original_language")
+workflow.add_edge("translate_to_original_language", "finalize_output")
 workflow.add_edge("translate_to_original_language", END)
 
 graph = workflow.compile()
