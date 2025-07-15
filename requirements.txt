@@ -22,3 +22,10 @@ googletrans
 ruff
 groq
 langchain_groq
+fastapi
+uvicorn
+sqlmodel
+email-validator
+passlib
+PyJWT
+python-multipart

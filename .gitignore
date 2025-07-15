@@ -9,3 +9,4 @@ src/processed_embeddings.json
 __pycache__
 .env
 *.log
+*.sqlite3
