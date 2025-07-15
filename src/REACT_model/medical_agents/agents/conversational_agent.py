@@ -26,12 +26,9 @@ prompt = ChatPromptTemplate.from_messages([
 # Chaîne avec mémoire
 chain = prompt | llm
 
-def diagnostic_agent_conversation(user_input: str) -> tuple[str, bool]:
+def diagnostic_agent_conversation(user_input: str) -> str:
     """
     Agent conversationnel qui pose des questions pour affiner son diagnostic.
-    Retourne :
-        - La réponse générée (str)
-        - Un flag has_followup (bool) indiquant s'il reste des questions
     """
     # Ajoute le message à l’historique
     memory.save_context({"input": user_input}, {"output": ""})
@@ -47,10 +44,5 @@ def diagnostic_agent_conversation(user_input: str) -> tuple[str, bool]:
 
     # Sauvegarde la réponse dans l’historique
     memory.save_context({"input": user_input}, {"output": response.content})
-    # 🔥 Détection d'une phrase clé pour savoir si l’agent continue
-    if "Do you have any other symptoms?" in response.content or \
-       "Can you provide more details?" in response.content:
-        has_followup = True
-    else:
-        has_followup = False
-    return response.content, has_followup
+
+    return response.content
