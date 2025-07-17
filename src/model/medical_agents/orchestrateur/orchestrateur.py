@@ -460,7 +460,9 @@ workflow.add_edge("finalize_output", END)
 
 # Compilation du graphe
 compiled_graph = workflow.compile()
-
+png = compiled_graph.get_graph().draw_mermaid_png()
+with open("langgraph_corrected.png", "wb") as file:
+            file.write(png)
 
 # 💬 Boucle interactive
 async def run():
@@ -472,6 +474,9 @@ async def run():
             break
 
         result = await compiled_graph.ainvoke({"input": question})
+        png2 = compiled_graph.get_graph().draw_mermaid_png()
+        with open("langgraph_corrected2.png", "wb") as file:
+                    file.write(png2)
         print(f"\n🤖 Réponse : {result['output']}\n")
 
 

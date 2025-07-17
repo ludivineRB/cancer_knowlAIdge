@@ -1,0 +1,317 @@
+{% include 'header.html' %}
+{% load static %}
+
+<!-- Hero Section -->
+<section class="hero-section bg-gradient-to-br from-blue-50 to-indigo-50 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                Cancer KnowlAIdge
+                <span class="block text-blue-600 mt-2">& Support Services</span>
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+                Providing evidence-based treatment, compassionate support, and innovative research 
+                to help patients and families navigate their cancer journey with confidence and hope.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="btn-primary bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
+                    Ask your question about cancer
+                </button>
+                <button class="btn-secondary border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-all duration-200">
+                    Discuss about your feelings with cancer
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">About Cancer KnowlAIdge</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Our application helps team of oncologists, nurses, and support staff to 
+                provide personalized, comprehensive cancer care in a supportive environment.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="feature-card text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                <div class="bg-blue-100 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Expert Care</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Board-certified oncologists with decades of experience in cancer treatment and research.
+                </p>
+            </div>
+            
+            <div class="feature-card text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                <div class="bg-green-100 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Holistic Support</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Comprehensive support services including counseling, nutrition guidance, and family support.
+                </p>
+            </div>
+            
+            <div class="feature-card text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300">
+                <div class="bg-purple-100 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Advanced Treatment</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    State-of-the-art facilities with the latest in cancer treatment technology and therapies.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Services</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Comprehensive cancer care services designed to support patients through every stage of their journey.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="service-card bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                <svg class="h-8 w-8 text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Diagnosis & Staging</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    Comprehensive diagnostic services including imaging, biopsies, and molecular testing.
+                </p>
+                <a href="#" class="service-link text-blue-600 hover:text-blue-700 font-medium flex items-center">
+                    Learn more 
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="service-card bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                <svg class="h-8 w-8 text-green-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Treatment Planning</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    Personalized treatment plans developed by our multidisciplinary team.
+                </p>
+                <a href="#" class="service-link text-blue-600 hover:text-blue-700 font-medium flex items-center">
+                    Learn more 
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="service-card bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                <svg class="h-8 w-8 text-red-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Supportive Care</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    Comprehensive support services to help manage side effects and improve quality of life.
+                </p>
+                <a href="#" class="service-link text-blue-600 hover:text-blue-700 font-medium flex items-center">
+                    Learn more 
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="service-card bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                <svg class="h-8 w-8 text-purple-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 8a2 2 0 100-4 2 2 0 000 4zm6 0a2 2 0 100-4 2 2 0 000 4zm-6 4a2 2 0 100-4 2 2 0 000 4zm6 0a2 2 0 100-4 2 2 0 000 4z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Survivorship</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    Long-term follow-up care and support for cancer survivors and their families.
+                </p>
+                <a href="#" class="service-link text-blue-600 hover:text-blue-700 font-medium flex items-center">
+                    Learn more 
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="service-card bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                <svg class="h-8 w-8 text-indigo-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Clinical Trials</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    Access to cutting-edge treatments through our comprehensive clinical trials program.
+                </p>
+                <a href="#" class="service-link text-blue-600 hover:text-blue-700 font-medium flex items-center">
+                    Learn more 
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="service-card bg-white rounded-lg p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                <svg class="h-8 w-8 text-teal-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Prevention & Screening</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    Comprehensive screening programs and prevention strategies for high-risk individuals.
+                </p>
+                <a href="#" class="service-link text-blue-600 hover:text-blue-700 font-medium flex items-center">
+                    Learn more 
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Resources Section -->
+<section id="resources" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Patient Resources</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Access helpful resources and information to support you throughout your cancer journey.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="resource-card bg-blue-50 rounded-lg p-8 hover:bg-blue-100 transition-colors duration-300">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">For Patients</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center text-gray-700">
+                        <svg class="h-4 w-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        Treatment information and guides
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="h-4 w-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        Managing side effects
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="h-4 w-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        Nutrition and wellness
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="h-4 w-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        Financial assistance programs
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="resource-card bg-green-50 rounded-lg p-8 hover:bg-green-100 transition-colors duration-300">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">For Families</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center text-gray-700">
+                        <svg class="h-4 w-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        Support groups and counseling
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="h-4 w-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        Caregiver resources
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="h-4 w-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        Communication tools
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="h-4 w-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        Community resources
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4">Get in Touch</h2>
+            <p class="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Ready to start your journey with us? Contact our team to schedule a consultation or learn more about our services.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="contact-card text-center">
+                <div class="bg-blue-600 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Phone</h3>
+                <p class="text-gray-300">Call us 24/7</p>
+                <p class="text-white font-medium">(555) 123-4567</p>
+            </div>
+            
+            <div class="contact-card text-center">
+                <div class="bg-green-600 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Email</h3>
+                <p class="text-gray-300">Send us a message</p>
+                <p class="text-white font-medium">info@cancercare.com</p>
+            </div>
+            
+            <div class="contact-card text-center">
+                <div class="bg-purple-600 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Location</h3>
+                <p class="text-gray-300">Visit our center</p>
+                <p class="text-white font-medium">123 Medical Center Dr.</p>
+            </div>
+        </div>
+        
+        <div class="mt-12 text-center">
+            <button class="btn-primary bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
+                Schedule Appointment
+            </button>
+        </div>
+    </div>
+</section>
+
+{% include 'footer.html' %}

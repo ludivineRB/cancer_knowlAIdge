@@ -1,0 +1,104 @@
+{% comment %} {% include 'header.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Chat avec vos agents 🤖</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="question" placeholder="Posez votre question" required>
+        <select name="language">
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+        </select>
+        <button type="submit">Envoyer</button>
+    </form>
+
+    {% if response %}
+        <h3>Réponse :</h3>
+        <p>{{ response.answer }}</p>
+    {% endif %}
+</body>
+</html>
+
+{% include 'footer.html' %} {% endcomment %}
+
+{% include 'header.html' %}
+{% load static %}
+
+<!-- Chat Hero Section -->
+<section class="hero-section bg-gradient-to-br from-blue-50 to-indigo-50 py-20">
+    <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                Cancer Support Chat
+            </h1>
+            {% comment %} <p class="text-lg text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
+                Ask your questions or talk about your feelings. Our AI assistant and human advisors are here for you.
+            </p> {% endcomment %}
+            {% comment %} <div class="flex justify-center">
+                <button class="btn-primary bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
+                    Start Chatting
+                </button>
+            </div> {% endcomment %}
+        </div>
+    </div>
+</section>
+
+<!-- Chat Interface -->
+<section class="chat-section py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gray-50 border border-gray-200 rounded-xl shadow-sm">
+            <!-- Chat Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-t-xl flex items-center justify-between">
+                <h2 class="text-lg font-semibold">Cancer Support Chat Room</h2>
+                {% comment %} <span class="text-sm opacity-80">You are chatting as: <strong>{{ request.user.username }}</strong></span> {% endcomment %}
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="p-6 h-96 overflow-y-auto space-y-4">
+                {% for message in messages %}
+                    <div class="flex {% if message.user == request.user %}justify-end{% else %}justify-start{% endif %}">
+                        <div class="{% if message.user == request.user %}bg-blue-100 text-blue-800{% else %}bg-gray-200 text-gray-700{% endif %} px-4 py-2 rounded-lg shadow-sm max-w-xs">
+                            <p class="text-sm">{{ message.user.username }}</p>
+                            <p class="mt-1">{{ message.content }}</p>
+                            <span class="block text-xs text-gray-500 mt-1">{{ message.timestamp|date:"H:i" }}</span>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center text-gray-500">No messages yet. Start the conversation!</p>
+                {% endfor %}
+            </div>
+
+            <!-- Chat Input -->
+            <div class="border-t border-gray-200 p-4">
+                <form method="POST" class="flex gap-2">
+                    {% csrf_token %}
+                    <input 
+                        type="text" 
+                        name="content" 
+                        placeholder="Type your message here..." 
+                        class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    >
+                    <button 
+                        type="submit" 
+                        class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200"
+                    >
+                        Send
+                    </button>
+                </form>
+                {% if response %}
+                    <h3>Réponse :</h3>
+                    <p>{{ response.answer }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
