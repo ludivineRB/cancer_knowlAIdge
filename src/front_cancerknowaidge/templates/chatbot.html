@@ -74,6 +74,10 @@
                 {% empty %}
                     <p class="text-center text-gray-500">No messages yet. Start the conversation!</p>
                 {% endfor %}
+                {% if response %}
+                    <h3>Réponse :</h3>
+                    <p>{{ response.answer }}</p>
+                {% endif %}
             </div>
 
             <!-- Chat Input -->
@@ -82,7 +86,7 @@
                     {% csrf_token %}
                     <input 
                         type="text" 
-                        name="content" 
+                        name="question" 
                         placeholder="Type your message here..." 
                         class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
@@ -94,10 +98,7 @@
                         Send
                     </button>
                 </form>
-                {% if response %}
-                    <h3>Réponse :</h3>
-                    <p>{{ response.answer }}</p>
-                {% endif %}
+                
             </div>
         </div>
     </div>
