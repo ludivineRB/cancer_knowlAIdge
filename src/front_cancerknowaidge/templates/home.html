@@ -30,15 +30,15 @@
 <section id="about" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">About Cancer KnowlAIdge</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">About CancerCare</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Our application helps team of oncologists, nurses, and support staff to 
-                provide personalized, comprehensive cancer care in a supportive environment.
+                Our multidisciplinary team of oncologists, nurses, and support staff are dedicated to 
+                providing personalized, comprehensive cancer care in a supportive environment.
             </p>
         </div>
         
         <div class="grid md:grid-cols-3 gap-8">
-            <div class="feature-card text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300">
+            <div class="feature-card text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer" onclick="toggleDescription('expert-care')">
                 <div class="bg-blue-100 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
                     <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -48,9 +48,20 @@
                 <p class="text-gray-600 leading-relaxed">
                     Board-certified oncologists with decades of experience in cancer treatment and research.
                 </p>
+                <div id="expert-care" class="description-content hidden mt-4 p-4 bg-blue-50 rounded-lg text-left">
+                    <h4 class="font-semibold text-gray-900 mb-2">Our Medical Excellence</h4>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• Board-certified medical oncologists, radiation oncologists, and surgical oncologists</li>
+                        <li>• Fellowship-trained specialists in specific cancer types</li>
+                        <li>• Active participation in national cancer research networks</li>
+                        <li>• Continuous medical education and training in latest treatment protocols</li>
+                        <li>• Multidisciplinary tumor board reviews for complex cases</li>
+                        <li>• Access to cutting-edge diagnostic and treatment technologies</li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="feature-card text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300">
+            <div class="feature-card text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer" onclick="toggleDescription('holistic-support')">
                 <div class="bg-green-100 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
                     <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -60,9 +71,21 @@
                 <p class="text-gray-600 leading-relaxed">
                     Comprehensive support services including counseling, nutrition guidance, and family support.
                 </p>
+                <div id="holistic-support" class="description-content hidden mt-4 p-4 bg-green-50 rounded-lg text-left">
+                    <h4 class="font-semibold text-gray-900 mb-2">Comprehensive Care Services</h4>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• Licensed clinical social workers and psychologists</li>
+                        <li>• Registered dietitians specializing in oncology nutrition</li>
+                        <li>• Pain management and palliative care specialists</li>
+                        <li>• Support groups for patients and family members</li>
+                        <li>• Spiritual care and chaplaincy services</li>
+                        <li>• Financial counseling and insurance navigation</li>
+                        <li>• Integrative therapies: massage, acupuncture, meditation</li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="feature-card text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300">
+            <div class="feature-card text-center p-6 rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer" onclick="toggleDescription('advanced-treatment')">
                 <div class="bg-purple-100 rounded-full p-6 w-20 h-20 mx-auto mb-4 flex items-center justify-center">
                     <svg class="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
@@ -72,6 +95,18 @@
                 <p class="text-gray-600 leading-relaxed">
                     State-of-the-art facilities with the latest in cancer treatment technology and therapies.
                 </p>
+                <div id="advanced-treatment" class="description-content hidden mt-4 p-4 bg-purple-50 rounded-lg text-left">
+                    <h4 class="font-semibold text-gray-900 mb-2">Cutting-Edge Technology</h4>
+                    <ul class="text-sm text-gray-700 space-y-2">
+                        <li>• Linear accelerators with IMRT and IGRT capabilities</li>
+                        <li>• Robotic surgical systems for minimally invasive procedures</li>
+                        <li>• Advanced imaging: PET/CT, MRI, molecular imaging</li>
+                        <li>• Precision medicine and genomic tumor profiling</li>
+                        <li>• Immunotherapy and targeted therapy protocols</li>
+                        <li>• Clinical trials for experimental treatments</li>
+                        <li>• Intraoperative radiation therapy (IORT)</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -261,7 +296,7 @@
     </div>
 </section>
 
-<!-- Contact Section -->
+{% comment %} <!-- Contact Section -->
 <section id="contact" class="py-20 bg-gray-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
@@ -314,5 +349,5 @@
         </div>
     </div>
 </section>
-
-{% include 'footer.html' %}
+{% endcomment %}
+{% include 'footer.html' %} 

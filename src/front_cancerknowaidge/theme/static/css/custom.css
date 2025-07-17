@@ -1,3 +1,4 @@
+/* Custom CSS for Cancer Care Website */
 
 /* Typography */
 body {
@@ -82,6 +83,33 @@ h1, h2, h3, h4, h5, h6 {
 .feature-card:hover {
     border-color: #e5e7eb;
     transform: translateY(-2px);
+}
+
+/* Description Content */
+.description-content {
+    animation: slideDown 0.3s ease-out;
+    border-left: 3px solid currentColor;
+}
+
+.description-content.hidden {
+    display: none;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Active card state */
+.feature-card.active {
+    border-color: #2563eb;
+    box-shadow: 0 8px 25px 0 rgba(37, 99, 235, 0.15);
 }
 
 /* Service Cards */

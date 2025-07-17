@@ -38,3 +38,51 @@ def chatbot_view(request):
             response_data = {"answer": f"Erreur de connexion à l'API : {str(e)}"}
 
     return render(request, "chatbot.html", {"response": response_data})
+
+def about(request):
+    """
+    About page view displaying information about the cancer care center.
+    Includes mission, vision, team information, and core values.
+    """
+    context = {
+        'page_title': 'About Us - CancerCare Medical Center',
+        'meta_description': 'Learn about our mission, vision, and expert medical team dedicated to providing comprehensive cancer care with compassion and excellence.',
+        'current_page': 'about'
+    }
+    return render(request, 'about.html', context)
+
+def services(request):
+    """
+    Services page view showcasing all cancer care services.
+    Displays treatment options, diagnostic services, and support programs.
+    """
+    context = {
+        'page_title': 'Our Services - Comprehensive Cancer Care',
+        'meta_description': 'Explore our comprehensive cancer care services including medical oncology, radiation therapy, surgical oncology, diagnostic services, and patient support programs.',
+        'current_page': 'services'
+    }
+    return render(request, 'services.html', context)
+
+def resources(request):
+    """
+    Resources page view providing patient and family resources.
+    Includes educational materials, support groups, financial assistance, and online tools.
+    """
+    context = {
+        'page_title': 'Patient Resources - Support & Information',
+        'meta_description': 'Access comprehensive patient resources including educational materials, support groups, financial assistance, wellness programs, and online tools.',
+        'current_page': 'resources'
+    }
+    return render(request, 'resources.html', context)
+
+def contact(request):
+    """
+    Contact page view with contact information and inquiry form.
+    Displays location, hours, contact methods, and contact form.
+    """
+    context = {
+        'page_title': 'Contact Us - CancerCare Medical Center',
+        'meta_description': 'Contact CancerCare Medical Center for appointments, questions, or support. Find our location, hours, phone numbers, and send us a message.',
+        'current_page': 'contact'
+    }
+    return render(request, 'contact.html', context)

@@ -31,10 +31,10 @@
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-8">
-                    <a href="#about" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">About</a>
-                    <a href="#services" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Services</a>
-                    <a href="#resources" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Resources</a>
-                    <a href="#contact" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Contact</a>
+                    <a href="{% url 'about' %}" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">About</a>
+                    <a href="{% url 'services' %}" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Services</a>
+                    <a href="{% url 'resources' %}" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Resources</a>
+                    <a href="{% url 'contact' %}" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Contact</a>
                 </div>
                 
                 <!-- Mobile menu button -->
