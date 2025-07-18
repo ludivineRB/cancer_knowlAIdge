@@ -86,3 +86,135 @@ def contact(request):
         'current_page': 'contact'
     }
     return render(request, 'contact.html', context)
+
+def treatment_guides(request):
+    """
+    Treatment guides page view with comprehensive treatment information.
+    Displays detailed guides for different cancer treatment types.
+    """
+    context = {
+        'page_title': 'Treatment Guides - Cancer Treatment Information',
+        'meta_description': 'Comprehensive guides for cancer treatments including chemotherapy, radiation therapy, surgery, immunotherapy, and targeted therapy.',
+        'current_page': 'treatment_guides'
+    }
+    return render(request, 'resources/treatment-guides.html', context)
+
+def cancer_types(request):
+    """
+    Cancer types page view with information about different cancer types.
+    Includes common cancers, risk factors, prevention, and warning signs.
+    """
+    context = {
+        'page_title': 'Cancer Types - Information & Prevention',
+        'meta_description': 'Learn about different types of cancer, their symptoms, risk factors, prevention strategies, and warning signs to watch for.',
+        'current_page': 'cancer_types'
+    }
+    return render(request, 'resources/cancer-types.html', context)
+
+def side_effect_management(request):
+    """
+    Side effect management page view with practical management strategies.
+    Covers common side effects and coping strategies during treatment.
+    """
+    context = {
+        'page_title': 'Side Effect Management - Treatment Support',
+        'meta_description': 'Practical strategies for managing cancer treatment side effects including fatigue, nausea, skin changes, and emotional support.',
+        'current_page': 'side_effect_management'
+    }
+    return render(request, 'resources/side-effect-management.html', context)
+
+def chemotherapy_guide(request):
+    """
+    Detailed chemotherapy treatment guide.
+    Comprehensive information about chemotherapy process and management.
+    """
+    context = {
+        'page_title': 'Chemotherapy Treatment Guide - Comprehensive Information',
+        'meta_description': 'Complete guide to chemotherapy treatment including how it works, treatment process, side effects management, and what to expect.',
+        'current_page': 'chemotherapy_guide'
+    }
+    return render(request, 'resources/chemotherapy-guide.html', context)
+
+def breast_cancer_info(request):
+    """
+    Comprehensive breast cancer information page.
+    Covers types, screening, treatment options, and support resources.
+    """
+    context = {
+        'page_title': 'Breast Cancer Information - Types, Screening & Treatment',
+        'meta_description': 'Comprehensive breast cancer information including types, screening guidelines, treatment options, and support resources.',
+        'current_page': 'breast_cancer_info'
+    }
+    return render(request, 'resources/breast-cancer-info.html', context)
+
+def prostate_cancer_info(request):
+    """
+    Comprehensive prostate cancer information page.
+    Covers types, screening, treatment options, and support resources.
+    """
+    context = {
+        'page_title': 'Prostate Cancer Information - Types, Screening & Treatment',
+        'meta_description': 'Comprehensive prostate cancer information including types, screening guidelines, treatment options, and support resources.',
+        'current_page': 'prostate_cancer_info'
+    }
+    return render(request, 'resources/prostate-cancer-info.html', context)
+
+def colorectal_cancer_info(request):
+    """
+    Comprehensive colorectal cancer information page.
+    Covers types, screening, treatment options, and support resources.
+    """
+    context = {
+        'page_title': 'colorectal Cancer Information - Types, Screening & Treatment',
+        'meta_description': 'Comprehensive colorectal cancer information including types, screening guidelines, treatment options, and support resources.',
+        'current_page': 'colorectal_cancer_info'
+    }
+    return render(request, 'resources/colorectal-cancer-info.html', context)
+
+def lung_cancer_info(request):
+    """
+    Comprehensive lung cancer information page.
+    Covers types, screening, treatment options, and support resources.
+    """
+    context = {
+        'page_title': 'Lung Cancer Information - Types, Screening & Treatment',
+        'meta_description': 'Comprehensive lung cancer information including types, screening guidelines, treatment options, and support resources.',
+        'current_page': 'lung_cancer_info'
+    }
+    return render(request, 'resources/lung-cancer-info.html', context)
+
+def skin_cancer_info(request):
+    """
+    Comprehensive skin cancer information page.
+    Covers types, screening, treatment options, and support resources.
+    """
+    context = {
+        'page_title': 'skin Cancer Information - Types, Screening & Treatment',
+        'meta_description': 'Comprehensive skin cancer information including types, screening guidelines, treatment options, and support resources.',
+        'current_page': 'skin_cancer_info'
+    }
+    return render(request, 'resources/skin-cancer-info.html', context)
+
+def blood_cancer_info(request):
+    """
+    Comprehensive blood cancer information page.
+    Covers types, screening, treatment options, and support resources.
+    """
+    context = {
+        'page_title': 'blood Cancer Information - Types, Screening & Treatment',
+        'meta_description': 'Comprehensive blood cancer information including types, screening guidelines, treatment options, and support resources.',
+        'current_page': 'blood_cancer_info'
+    }
+    return render(request, 'resources/blood-cancer-info.html', context)
+
+def fatigue_management(request):
+    """
+    Cancer-related fatigue management strategies.
+    Detailed information on understanding and managing cancer fatigue.
+    """
+    context = {
+        'page_title': 'Cancer Fatigue Management - Strategies & Support',
+        'meta_description': 'Comprehensive strategies for managing cancer-related fatigue including energy conservation, exercise, sleep, and when to seek help.',
+        'current_page': 'fatigue_management'
+    }
+    return render(request, 'resources/fatigue-management.html', context)

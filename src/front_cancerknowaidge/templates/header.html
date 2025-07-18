@@ -32,7 +32,7 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-8">
                     <a href="{% url 'about' %}" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">About</a>
-                    <a href="{% url 'services' %}" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Services</a>
+                    {% comment %} <a href="{% url 'services' %}" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Services</a> {% endcomment %}
                     <a href="{% url 'resources' %}" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Resources</a>
                     <a href="{% url 'contact' %}" class="nav-link text-gray-700 hover:text-blue-600 transition-colors duration-200">Contact</a>
                 </div>
@@ -50,7 +50,7 @@
             <!-- Mobile Navigation -->
             <div class="mobile-menu hidden md:hidden pb-4">
                 <a href="#about" class="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200">About</a>
-                <a href="#services" class="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200">Services</a>
+                {% comment %} <a href="#services" class="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200">Services</a> {% endcomment %}
                 <a href="#resources" class="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200">Resources</a>
                 <a href="#contact" class="block py-2 text-gray-700 hover:text-blue-600 transition-colors duration-200">Contact</a>
             </div>

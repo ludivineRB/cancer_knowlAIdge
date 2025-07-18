@@ -36,7 +36,8 @@
                     Detailed information about different cancer treatments, what to expect, and how to prepare.
                 </p>
                 <a href="#" class="text-blue-600 hover:text-blue-700 font-medium flex items-center">
-                    Access Guides
+                    <a href="{% url 'treatment_guides' %}" class="text-blue-600 hover:text-blue-700 font-medium flex items-center">
+                        Access Guides
                     <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
@@ -54,6 +55,7 @@
                     Comprehensive information about different types of cancer, symptoms, and risk factors.
                 </p>
                 <a href="#" class="text-green-600 hover:text-green-700 font-medium flex items-center">
+                <a href="{% url 'cancer_types' %}" class="text-green-600 hover:text-green-700 font-medium flex items-center">
                     Learn More
                     <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -72,6 +74,7 @@
                     Practical tips and strategies for managing treatment side effects and improving quality of life.
                 </p>
                 <a href="#" class="text-purple-600 hover:text-purple-700 font-medium flex items-center">
+                <a href="{% url 'side_effect_management' %}" class="text-purple-600 hover:text-purple-700 font-medium flex items-center">
                     View Resources
                     <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
