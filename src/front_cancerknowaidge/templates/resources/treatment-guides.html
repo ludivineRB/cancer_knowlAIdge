@@ -1,0 +1,411 @@
+{% include 'header.html' %}
+
+<!-- Treatment Guides Hero Section -->
+<section class="bg-gradient-to-br from-blue-50 to-indigo-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Treatment Guides
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Comprehensive guides to help you understand your treatment options and what to expect during your cancer journey.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Treatment Categories -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Treatment Categories</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Explore detailed information about different cancer treatment approaches and what to expect.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Chemotherapy Guide -->
+            <div class="bg-white rounded-lg p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-blue-100 rounded-full p-4 w-16 h-16 mb-6 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Chemotherapy</h3>
+                <p class="text-gray-600 mb-6">
+                    Learn about chemotherapy treatments, how they work, what to expect during treatment, and how to manage side effects.
+                </p>
+                <div class="space-y-3 text-sm text-gray-700 mb-6">
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-blue-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>How chemotherapy works</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-blue-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Treatment schedules and cycles</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-blue-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Preparing for treatment</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-blue-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Managing side effects</span>
+                    </div>
+                </div>
+                <a href="{% url 'chemotherapy_guide' %}" class="text-blue-600 hover:text-blue-700 font-medium flex items-center">
+                    Read Full Guide
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Radiation Therapy Guide -->
+            <div class="bg-white rounded-lg p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-green-100 rounded-full p-4 w-16 h-16 mb-6 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Radiation Therapy</h3>
+                <p class="text-gray-600 mb-6">
+                    Understand radiation therapy, including external beam radiation, brachytherapy, and what happens during treatment.
+                </p>
+                <div class="space-y-3 text-sm text-gray-700 mb-6">
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-green-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Types of radiation therapy</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-green-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Treatment planning process</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-green-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Daily treatment routine</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-green-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Skin care during treatment</span>
+                    </div>
+                </div>
+                <a href="#" class="text-green-600 hover:text-green-700 font-medium flex items-center">
+                    Read Full Guide
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Surgery Guide -->
+            <div class="bg-white rounded-lg p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-purple-100 rounded-full p-4 w-16 h-16 mb-6 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Cancer Surgery</h3>
+                <p class="text-gray-600 mb-6">
+                    Information about surgical treatments, including preparation, what to expect, and recovery guidelines.
+                </p>
+                <div class="space-y-3 text-sm text-gray-700 mb-6">
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-purple-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Types of cancer surgery</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-purple-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Pre-operative preparation</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-purple-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Recovery and healing</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-purple-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Post-operative care</span>
+                    </div>
+                </div>
+                <a href="#" class="text-purple-600 hover:text-purple-700 font-medium flex items-center">
+                    Read Full Guide
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Immunotherapy Guide -->
+            <div class="bg-white rounded-lg p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-indigo-100 rounded-full p-4 w-16 h-16 mb-6 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Immunotherapy</h3>
+                <p class="text-gray-600 mb-6">
+                    Learn about immunotherapy treatments that help your immune system fight cancer more effectively.
+                </p>
+                <div class="space-y-3 text-sm text-gray-700 mb-6">
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-indigo-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>How immunotherapy works</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-indigo-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Types of immunotherapy</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-indigo-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Eligibility and testing</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-indigo-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Monitoring and follow-up</span>
+                    </div>
+                </div>
+                <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium flex items-center">
+                    Read Full Guide
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Targeted Therapy Guide -->
+            <div class="bg-white rounded-lg p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-teal-100 rounded-full p-4 w-16 h-16 mb-6 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Targeted Therapy</h3>
+                <p class="text-gray-600 mb-6">
+                    Understand targeted therapy drugs that attack specific cancer cell features while sparing healthy cells.
+                </p>
+                <div class="space-y-3 text-sm text-gray-700 mb-6">
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-teal-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Molecular testing requirements</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-teal-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Common targeted therapies</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-teal-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Treatment administration</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-teal-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Response monitoring</span>
+                    </div>
+                </div>
+                <a href="#" class="text-teal-600 hover:text-teal-700 font-medium flex items-center">
+                    Read Full Guide
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Clinical Trials Guide -->
+            <div class="bg-white rounded-lg p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-orange-100 rounded-full p-4 w-16 h-16 mb-6 flex items-center justify-center">
+                    <svg class="h-8 w-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Clinical Trials</h3>
+                <p class="text-gray-600 mb-6">
+                    Learn about clinical trials, how they work, and whether participating might be right for you.
+                </p>
+                <div class="space-y-3 text-sm text-gray-700 mb-6">
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-orange-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>What are clinical trials</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-orange-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Phases of clinical trials</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-orange-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Benefits and risks</span>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="h-4 w-4 text-orange-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Finding the right trial</span>
+                    </div>
+                </div>
+                <a href="#" class="text-orange-600 hover:text-orange-700 font-medium flex items-center">
+                    Read Full Guide
+                    <svg class="h-4 w-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Preparation Guides -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Treatment Preparation</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Essential guides to help you prepare for your treatment and recovery.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-200">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-6">Before Treatment</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 rounded-full p-2 mr-4 mt-1">
+                            <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Medical Preparation</h4>
+                            <p class="text-gray-600 text-sm">Pre-treatment tests, medications to avoid, and health optimization</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 rounded-full p-2 mr-4 mt-1">
+                            <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Practical Preparation</h4>
+                            <p class="text-gray-600 text-sm">Transportation, childcare, work arrangements, and home preparation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 rounded-full p-2 mr-4 mt-1">
+                            <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Emotional Preparation</h4>
+                            <p class="text-gray-600 text-sm">Coping strategies, support systems, and mental health resources</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-200">
+                <h3 class="text-2xl font-semibold text-gray-900 mb-6">During Treatment</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-green-100 rounded-full p-2 mr-4 mt-1">
+                            <svg class="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">What to Expect</h4>
+                            <p class="text-gray-600 text-sm">Treatment schedules, facility procedures, and team interactions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-green-100 rounded-full p-2 mr-4 mt-1">
+                            <svg class="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Self-Care Tips</h4>
+                            <p class="text-gray-600 text-sm">Nutrition, hydration, rest, and activity recommendations</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-green-100 rounded-full p-2 mr-4 mt-1">
+                            <svg class="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Communication</h4>
+                            <p class="text-gray-600 text-sm">How to communicate with your care team and ask questions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Navigation Back -->
+<section class="py-12 bg-white border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <a href="{% url 'resources' %}" class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Back to Resources
+            </a>
+        </div>
+    </div>
+</section>
+
+{% include 'footer.html' %}

@@ -1,0 +1,124 @@
+{% include 'header.html' %}
+
+<!-- Chatbot Interface -->
+<section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+            <!-- Chat Header -->
+            <div class="bg-blue-600 text-white p-6">
+                <h3 class="text-xl font-semibold">Dr. Sarah - Emotional Support Assistant</h3>
+                <p class="text-blue-100 text-sm">Available 24/7</p>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="h-96 overflow-y-auto p-6 bg-gray-50">
+                <div class="flex items-start mb-6">
+                    <div class="bg-blue-100 rounded-full p-2 mr-3 mt-1">
+                        <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200 max-w-md">
+                        <p class="text-gray-800">Bonjour ! Je suis Dr. Sarah, votre psychologue virtuel. De quoi aimeriez-vous parler ?</p>
+                        <span class="text-xs text-gray-400 mt-2 block">Just now</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="border-t border-gray-200 p-4 bg-white">
+                <div class="flex items-center space-x-3">
+                    <div class="flex-1">
+                        <textarea 
+                            id="chat-input" 
+                            rows="2" 
+                            placeholder="Type your message here... Press Enter to send"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                            onkeypress="handleKeyPress(event)"
+                        ></textarea>
+                    </div>
+                    <button 
+                        onclick="sendMessage()" 
+                        class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center"
+                    >
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// 🆕 Génère un session_id unique pour chaque visite
+const sessionId = crypto.randomUUID();
+
+function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    if (message) {
+        addUserMessage(message);
+        input.value = '';
+
+        // Appel API 🆕
+        fetch('http://localhost:8080/api/psychologue', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                session_id: sessionId,
+                message: message
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            addBotMessage(data.response);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            addBotMessage("❌ Sorry, I couldn’t process your message. Please try again.");
+        });
+    }
+}
+
+function addUserMessage(message) {
+    const chatMessages = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'flex items-start justify-end mb-4';
+    messageDiv.innerHTML = `
+        <div class="bg-blue-600 text-white rounded-lg p-4 max-w-md">
+            <p>${message}</p>
+            <span class="text-xs text-blue-100 mt-2 block">Just now</span>
+        </div>
+    `;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function addBotMessage(message) {
+    const chatMessages = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'flex items-start mb-4';
+    messageDiv.innerHTML = `
+        <div class="bg-blue-100 rounded-full p-2 mr-3 mt-1">
+            <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200 max-w-md">
+            <p class="text-gray-800">${message}</p>
+            <span class="text-xs text-gray-400 mt-2 block">Just now</span>
+        </div>
+    `;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+    }
+}
+</script>
+
+{% include 'footer.html' %}

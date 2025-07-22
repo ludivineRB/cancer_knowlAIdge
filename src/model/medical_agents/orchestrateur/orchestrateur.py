@@ -1,157 +1,176 @@
-# # import sys
-# # import os
-
-# # # Ajoute le dossier src au PYTHONPATH
-# # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
-# from langgraph.graph import StateGraph
-
-# from ..agents.generaliste_agent import generaliste_agent
-
-# # 1️⃣ Définir l’état
-# class AgentState(dict):
-#     """
-#     Dictionnaire qui transporte l’état dans le graphe.
-#     """
-#     pass
-
-# # 2️⃣ Définir un noeud qui appelle directement ton agent
-# def run_generaliste(state: AgentState) -> AgentState:
-#     question = state.get("input")
-#     answer = generaliste_agent(question)
-#     return {"output": answer}
-
-# # 3️⃣ Créer le graphe
-# workflow = StateGraph(AgentState)
-
-# # Ajouter un noeud qui appelle le généraliste
-# workflow.add_node("generaliste", run_generaliste)
-
-# # Définir le point d’entrée
-# workflow.set_entry_point("generaliste")
-
-# # Compiler
-# app = workflow.compile()
-
-# # 🚀 Boucle de test
-# if __name__ == "__main__":
-#     print("👩‍⚕️ Bienvenue dans le chatbot médical.")
-#     while True:
-#         question = input("👤 Question : ")
-#         if question.lower() in ["exit", "quit", "q"]:
-#             print("👋 À bientôt !")
-#             break
-#         response = app.invoke({"input": question})
-#         print("DEBUG RESPONSE:", response)
-#         print(f"🤖 Réponse : {response['output']}\n")
-
 # orchestrateur.py
-from typing import TypedDict
-from langchain_openai import ChatOpenAI
+
 from langgraph.graph import StateGraph, START, END
 from googletrans import Translator
 from ..agents.generaliste_agent import generaliste_agent
-from dotenv import load_dotenv
-import os
-import asyncio
+from ..agents.clinical_trials_agent import clinical_trials_agent
+from ..agents.therapeutique_agent import treatments_agent
+from ..agents.summarize_pubmed_agent import summarize_pubmed_results
+from ..agents.conversational_agent import diagnostic_agent_conversation
+from ..agents.coordinator_agent import coordinator_agent
 from pydantic import BaseModel
+import asyncio
 
-
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Google Translate
 translator = Translator()
 
-# # ✅ Définition du State (le "schéma" du state)
-# class AgentState(TypedDict):
-#     input: str
-#     translated_input: str
-#     output: str
-#     language: str
 
+# 🗂️ État global du chatbot
 class ChatState(BaseModel):
     input: str
     translated_input: str | None = None
     language: str | None = None
     answer_en: str | None = None
     output: str | None = None
+    terminated: bool = False  # Flag Stop
+    agent_sequence: list[str] = []  # Liste des agents choisis
+    current_agent_index: int = 0    # Index du prochain agent à exécuter
+    agent_done: bool = False
 
-def translate_sync(text, dest="en"):
-    loop = asyncio.get_event_loop()
-    return loop.run_until_complete(translator.translate(text, dest=dest))
 
-# 🌍 Agent de traduction vers anglais
-def translate_to_english_node(state: ChatState) -> ChatState:
+# 🌐 Traduction FR ➡️ EN
+async def translate_to_english_node(state: ChatState) -> ChatState:
     user_input = state.input
     print("🌍 Traduction en anglais en cours...")
-
-    # ✅ Traduction synchrone
-    result = translate_sync(user_input, dest="en")
-
+    result = await translator.translate(user_input, dest="en")
     print(f"✅ Traduction anglaise : {result.text} (langue détectée : {result.src})")
     state.translated_input = result.text
     state.language = result.src
     return state
 
 
-# 1. Fonction qui traite la question
-def generaliste_node(state: ChatState) -> ChatState:
+# 🧠 Coordination des agents
+def coordinator_node(state: ChatState) -> ChatState:
     question_en = state.translated_input or state.input
-    print(f"🔍 [node] question reçue (anglais) : {question_en}")
+    print("🧠 [Coordinator] Analyse de la question...")
+    agents_sequence = coordinator_agent(question_en)
 
-    answer = generaliste_agent(question_en)
+    # Vérification de la réponse
+    if not agents_sequence:
+        print("⚠️ Aucun agent recommandé par le coordinator.")
+        state.agent_sequence = []
+        return state
 
-    print(f"✅ [node] réponse générée (anglais) : {answer}")
-    state.answer_en = answer
+    # Aplatir la séquence d'agents
+    flat_agents_sequence = [agent for group in agents_sequence for agent in group]
+    print(f"📋 Agents choisis : {flat_agents_sequence}")
+
+    state.agent_sequence = flat_agents_sequence
+    state.current_agent_index = 0
     return state
 
-# 🌍 Agent de traduction retour vers la langue d’origine
-def translate_to_original_language_node(state: ChatState) -> ChatState:
+
+# 🚀 Exécution des agents
+def agent_executor_node(state: ChatState) -> ChatState:
+    if state.current_agent_index >= len(state.agent_sequence):
+        print("✅ Tous les agents ont été exécutés.")
+        state.agent_done = True
+        return state
+
+    agent_name = state.agent_sequence[state.current_agent_index]
+    question_en = state.translated_input or state.input
+    print(f"🚀 Exécution de l'agent : {agent_name}")
+
+    response = None
+    if agent_name == "clinical_trials":
+        response = clinical_trials_agent(question_en)
+    elif agent_name == "treatments":
+        response = treatments_agent(question_en)
+    elif agent_name == "diagnosis":
+        response = diagnostic_agent_conversation(question_en)
+    elif agent_name == "generaliste":
+        response = generaliste_agent(question_en)
+    elif agent_name == "scientific_summary":
+        response = summarize_pubmed_results(question_en, state.language or "en")
+    else:
+        print(f"⚠️ Agent inconnu : {agent_name}")
+
+    # ✅ Si une réponse a été générée
+    if response:
+        print(f"✅ Réponse générée par {agent_name}")
+        # 🛠️ Corrige ici : si c’est un tuple, on prend juste le texte
+        if isinstance(response, tuple):
+            response_text = response[0]
+        else:
+            response_text = response
+
+        state.answer_en = response_text
+        state.agent_done = True
+    else:
+        print(f"➡️ Aucun résultat pour l'agent {agent_name}, on passe au suivant.")
+        state.current_agent_index += 1
+        state.agent_done = False
+
+    return state
+
+
+# 🌍 Traduction retour EN ➡️ langue d’origine
+async def translate_to_original_language_node(state: ChatState) -> ChatState:
     if not state.answer_en:
         print("⚠️ Pas de réponse en anglais trouvée, on utilise directement la sortie existante.")
         state.output = "❌ Une erreur est survenue."
         return state
 
-    if state.language == "en":
+    if state.language and state.language != "en":
+        print(f"🌍 Retraduction en {state.language} en cours...")
+        result = await translator.translate(state.answer_en, dest=state.language)
+        print(f"✅ Réponse retraduite : {result.text}")
+        state.output = result.text
+    else:
         state.output = state.answer_en
-        return state
-
-    # print(f"🌍 Retraduction en {state.language} en cours...")
-    result = translate_sync(state.answer_en, dest=state.language)
-    # print(f"✅ Réponse retraduite : {result.text}")
-    state.output = result.text
     return state
 
-# 2. Création du graphe
-workflow = StateGraph(ChatState)
-# graph = StateGraph(state_schema=ChatState)
 
+# 🏁 Finalisation
+def finalize_output_node(state: ChatState) -> ChatState:
+    state.output = state.output or state.answer_en or  "❌ Aucune réponse générée."
+    return state
+
+
+# 🔗 Construction du graphe
+workflow = StateGraph(ChatState)
 
 # Ajoute les nœuds
 workflow.add_node("translate_to_english", translate_to_english_node)
-workflow.add_node("generaliste", generaliste_node)
+workflow.add_node("coordinator", coordinator_node)
+workflow.add_node("agent_executor", agent_executor_node)
 workflow.add_node("translate_to_original_language", translate_to_original_language_node)
+workflow.add_node("finalize_output", finalize_output_node)
 
 # Connexions entre les nœuds
 workflow.add_edge(START, "translate_to_english")
-workflow.add_edge("translate_to_english", "generaliste")
-workflow.add_edge("generaliste", "translate_to_original_language")
-workflow.add_edge("translate_to_original_language", END)
+workflow.add_edge("translate_to_english", "coordinator")
+workflow.add_edge("coordinator", "agent_executor")
 
-graph = workflow.compile()
+workflow.add_conditional_edges(
+    "agent_executor",
+    lambda state: (
+        "translate_to_original_language"
+        if state.agent_done
+        else "agent_executor"
+    ),
+    {
+        "translate_to_original_language": "translate_to_original_language",
+        "agent_executor": "agent_executor",
+    }
+)
 
-# 3. Boucle interactive
+workflow.add_edge("translate_to_original_language", "finalize_output")
+workflow.add_edge("finalize_output", END)
+
+# Compile le graphe
+compiled_graph = workflow.compile()
+
+
+# 🎯 Exemple d’invocation
 if __name__ == "__main__":
-    llm = ChatOpenAI(model="gpt-4", temperature=0, openai_api_key=OPENAI_API_KEY)
-
-    print("👩‍⚕️ Chatbot médical (LangGraph v0.0.54+)")
+    print("👩‍⚕️ Chatbot médical (LangGraph)")
     while True:
         question = input("👤 Question : ")
         if question.lower() in ["exit", "quit", "q"]:
             print("👋 À bientôt !")
             break
 
-        # Invocation : tu dois fournir tout le State initial, ici 'input'
-        result = graph.invoke({"input": question})
-        # Résultat : dictionnaire avec la clé 'output'
+        result = asyncio.run(compiled_graph.ainvoke({"input": question}))
         print(f"🤖 Réponse : {result['output']}\n")

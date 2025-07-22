@@ -1,0 +1,50 @@
+name: Ruff Lint and Auto-fix
+
+on:
+  push:
+    branches:
+      - "**"       # Lance le workflow sur tous les push
+  pull_request:
+    branches:
+      - "**"       # Lance aussi sur toutes les PR
+
+jobs:
+  ruff:
+    name: Ruff Lint & Auto-fix
+    runs-on: ubuntu-latest
+
+    steps:
+      # Récupérer le code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Configurer Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Installer Ruff
+      - name: Install Ruff
+        run: |
+          pip install ruff
+
+      # 🛠️ Étape 1 : Corriger ce qui est possible
+      - name: Run Ruff with auto-fix
+        run: |
+          ruff check . --fix
+
+      # 📋 Étape 2 : Vérifier s’il reste des erreurs
+      - name: Run Ruff in check-only mode
+        run: |
+          ruff check . --exit-zero | tee ruff_output.txt
+          # On va analyser les erreurs restantes
+          grep -q "error" ruff_output.txt && exit 1 || echo "✅ No remaining lint errors"
+
+      # 📝 Étape 3 : Commit et push les corrections automatiques (si fichiers modifiés)
+      - name: Auto-commit Ruff fixes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "style: auto-fix lint issues with Ruff"
+          branch: ${{ github.ref }}
+        continue-on-error: true  # Ne bloque pas la suite si rien à commit

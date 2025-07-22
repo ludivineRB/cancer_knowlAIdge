@@ -1,19 +1,3 @@
-# from langchain_openai import ChatOpenAI
-# from dotenv import load_dotenv
-# import os
-
-# load_dotenv()
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-# # Instanciation LLM
-# llm = ChatOpenAI(model="gpt-4", temperature=0, openai_api_key=OPENAI_API_KEY)
-
-# # Agent généraliste
-# def generaliste_agent(query: str) -> str:
-#     prompt = f"Tu es un agent généraliste en santé. Réponds simplement à la question : {query}"
-#     return llm.invoke(prompt).content
-
-
-# agents/generaliste_agent.py
 import ollama
 
 # Charger le modèle une seule fois

@@ -8,4 +8,6 @@ src/processed_embeddings.json
 *.jsonl
 __pycache__
 .env
-
+*.log
+*.sqlite3
+migrations/

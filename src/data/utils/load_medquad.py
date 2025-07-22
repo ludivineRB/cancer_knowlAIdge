@@ -1,7 +1,6 @@
 # scripts/load_medquad.py
 
 from datasets import load_dataset
-import json
 
 # def download_medquad(dest_jsonl="src/data/raw/QA/medquad_qa.jsonl"):
 #     # Charger le dataset Hugging Face
@@ -22,7 +21,6 @@ import json
 
 # if __name__ == "__main__":
 #     download_medquad()
-from datasets import load_dataset
 
 # Charge le dataset
 ds = load_dataset("Laurent1/MedQuad-MedicalQnADataset_128tokens_max", split="train")

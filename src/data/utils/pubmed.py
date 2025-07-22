@@ -17,11 +17,11 @@ cancer_liste=['lung cancer', 'breast cancer', 'brain cancer',
                 'bone cancer', 'skin cancer', 'colorectal cancer',
                 'bladder cancer', 'lymphoma', 'cervical cancer', 'leukemia',
                 'melanoma', 'prostate cancer', 'bowel cancer', 'kidney cancer',
-                'childhood cancer', 'uterine cancer', 'sarcoma', 'appendix cancer', 
+                'childhood cancer', 'uterine cancer', 'sarcoma', 'appendix cancer',
                 'liver cancer', 'pancreatic cancer', 'myeloma', 'carcinoma',
                 'esophageal cancer', 'endometrial cancer', 'retinoblastoma',
                 'gastric cancer', 'testicular cancer', 'ovarian cancer', 'metastatic cancer',
-                'neuroblastoma', 
+                'neuroblastoma',
                 ]
 
 for i, _ in enumerate(cancer_liste):
