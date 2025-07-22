@@ -254,14 +254,10 @@ from ..agents.therapeutique_agent import treatments_agent
 from ..agents.summarize_pubmed_agent import summarize_pubmed_results
 from ..agents.conversational_agent import diagnostic_agent_conversation
 from ..agents.coordinator_agent import coordinator_agent
-from dotenv import load_dotenv
-import os
 from pydantic import BaseModel
 import asyncio  # Ajoute en haut
 
 
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Google Translate
 translator = Translator()

@@ -1,33 +1,4 @@
-{% comment %} {% include 'header.html' %}
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Chatbot</title>
-</head>
-<body>
-    <h1>Chat avec vos agents 🤖</h1>
-
-    <form method="post">
-        {% csrf_token %}
-        <input type="text" name="question" placeholder="Posez votre question" required>
-        <select name="language">
-            <option value="fr">Français</option>
-            <option value="en">English</option>
-        </select>
-        <button type="submit">Envoyer</button>
-    </form>
-
-    {% if response %}
-        <h3>Réponse :</h3>
-        <p>{{ response.answer }}</p>
-    {% endif %}
-</body>
-</html>
-
-{% include 'footer.html' %} {% endcomment %}
+{% comment %} 
 
 {% include 'header.html' %}
 {% load static %}
@@ -46,7 +17,7 @@
                 <button class="btn-primary bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-all duration-200 transform hover:scale-105">
                     Start Chatting
                 </button>
-            </div> {% endcomment %}
+            </div> 
         </div>
     </div>
 </section>
@@ -58,7 +29,7 @@
             <!-- Chat Header -->
             <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-t-xl flex items-center justify-between">
                 <h2 class="text-lg font-semibold">Cancer Support Chat Room</h2>
-                {% comment %} <span class="text-sm opacity-80">You are chatting as: <strong>{{ request.user.username }}</strong></span> {% endcomment %}
+                {% comment %} <span class="text-sm opacity-80">You are chatting as: <strong>{{ request.user.username }}</strong></span>
             </div>
 
             <!-- Chat Messages -->
@@ -102,4 +73,130 @@
             </div>
         </div>
     </div>
+</section> {% endcomment %}
+{% include 'header.html' %}
+{% load static %}
+
+<!-- Chatbot Interface -->
+<section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+            <!-- Chat Header -->
+            <div class="bg-blue-600 text-white p-6">
+                <h3 class="text-xl font-semibold">Cancer Support Chat</h3>
+                <p class="text-blue-100 text-sm">Vous pouvez poser vos questions ou exprimer vos émotions</p>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="h-96 overflow-y-auto p-6 bg-gray-50">
+                <div class="flex items-start mb-6">
+                    <div class="bg-blue-100 rounded-full p-2 mr-3 mt-1">
+                        <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200 max-w-md">
+                        <p class="text-gray-800">Bonjour ! Je suis votre assistant virtuel pour le soutien autour du cancer. Posez-moi vos questions.</p>
+                        <span class="text-xs text-gray-400 mt-2 block">Just now</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="border-t border-gray-200 p-4 bg-white">
+                <div class="flex items-center space-x-3">
+                    <div class="flex-1">
+                        <textarea 
+                            id="chat-input" 
+                            rows="2" 
+                            placeholder="Tapez votre message ici..." 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                            onkeypress="handleKeyPress(event)"
+                        ></textarea>
+                    </div>
+                    <button 
+                        onclick="sendMessage()" 
+                        class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center"
+                    >
+                        Envoyer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+<script>
+// 🆕 Génère un session_id unique pour l'utilisateur
+const sessionId = crypto.randomUUID();
+
+function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    if (message) {
+        addUserMessage(message);
+        input.value = '';
+
+        // Appel à l'API FastAPI sur le port 8080
+        fetch('http://localhost:8080/api/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                question: message,      // ✅ correspond à QuestionRequest.question
+                language: "fr"          // ✅ valeur par défaut ou récupérée du frontend
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            addBotMessage(data.answer);  // ✅ car l'API retourne AnswerResponse
+        })
+        .catch(error => {
+            console.error('Erreur API:', error);
+            addBotMessage("❌ Erreur lors de l'envoi du message. Réessayez.");
+        });
+
+    }
+}
+
+function addUserMessage(message) {
+    const chatMessages = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'flex items-start justify-end mb-4';
+    messageDiv.innerHTML = `
+        <div class="bg-blue-600 text-white rounded-lg p-4 max-w-md">
+            <p>${message}</p>
+            <span class="text-xs text-blue-100 mt-2 block">Vous</span>
+        </div>
+    `;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function addBotMessage(message) {
+    const chatMessages = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'flex items-start mb-4';
+    messageDiv.innerHTML = `
+        <div class="bg-blue-100 rounded-full p-2 mr-3 mt-1">
+            <svg class="h-4 w-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200 max-w-md">
+            <p class="text-gray-800">${message}</p>
+            <span class="text-xs text-gray-400 mt-2 block">Assistant</span>
+        </div>
+    `;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+    }
+}
+</script>
+
+{% include 'footer.html' %}

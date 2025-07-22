@@ -1,11 +1,12 @@
-from django.views.generic import TemplateView
 from django.urls import path
 from . import views
-from .views import chatbot_view
+from .views import chat_bot_view, chat_psychologue_view
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('chat', chatbot_view, name='chat'),
+    path('chat', chat_bot_view, name='chat'),
+    # path('psy', psychologue_view, name='psy'),
+    path("psy/", chat_psychologue_view, name="psy"),
     path('about/', views.about, name='about'),
     path('services/', views.services, name='services'),
     path('resources/', views.resources, name='resources'),
