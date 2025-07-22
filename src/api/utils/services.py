@@ -6,7 +6,7 @@ async def process_question(question: str, language: str = "fr"):
 
     # Adapter le résultat au format API
     return {
-        "answer": result.get("answer_fr") or result.get("answer_en"),
+        "answer": result.get("output") or result.get("answer_en"),
         "articles": result.get("pubmed_links", []),
         "agents": result.get("agents", [])
     }
