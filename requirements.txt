@@ -32,3 +32,5 @@ python-multipart
 django
 django-tailwind
 django-browser-reload
+langdetect
+deep_translator
