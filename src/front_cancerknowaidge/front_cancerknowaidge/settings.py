@@ -33,7 +33,7 @@ DJANGO_URL = os.getenv("DJANGO_URL")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [API_URL, "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition

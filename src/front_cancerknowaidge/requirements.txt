@@ -1,0 +1,13 @@
+dotenv
+googletrans
+groq
+uvicorn
+sqlmodel
+email-validator
+passlib
+PyJWT
+python-multipart
+django
+django-tailwind
+django-browser-reload
+requests
